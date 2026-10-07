@@ -1,0 +1,21 @@
+{
+  "name": "gitflow",
+  "version": "0.1.1",
+  "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
+  "interface": {
+    "displayName": "GitFlow",
+    "shortDescription": "项目 Git 分支规范治理",
+    "category": "development"
+  },
+  "skills": "./skills/",
+  "mcpServers": {
+    "gitflow": {
+      "command": "python3",
+      "args": [
+        "./scripts/gitflow.py",
+        "mcp"
+      ],
+      "cwd": "./"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gitflow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
   "author": {
     "name": "Full Stack Skills"
@@ -21,6 +21,19 @@
       "codexManifest": "./.codex-plugin/plugin.json",
       "zcodeManifest": "./.zcode-plugin/plugin.json",
       "hooks": "./hooks/hooks.json"
+    },
+    "com.openai": {
+      "interface": {
+        "displayName": "GitFlow",
+        "shortDescription": "项目 Git 分支规范治理",
+        "defaultPrompt": [
+          "识别本项目 Git 规范并执行只读审计",
+          "预览符合项目工作流的任务分支"
+        ],
+        "brandColor": "#F05032",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo.png"
+      }
     }
   },
   "repository": "https://github.com/full-stack-plugins/gitflow-plugin",

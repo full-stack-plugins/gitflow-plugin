@@ -1,0 +1,16 @@
+{
+  "version": "0.1.1",
+  "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "tag": "v0.1.1",
+  "sha256": "57f6d46e361a77dfc743a1c366b6be3241f24fd2658162d691ff7963cb4b4c9d",
+  "bytes": 838129,
+  "logo_sha256": "a2e171dd47205acb0634e98dd354b58b3c27c3f17866c6619d7d17494e591c05",
+  "local_validation": {
+    "package_tests": 4,
+    "protocol_tests": 17,
+    "market_tests": 3,
+    "schema": "Agent Plugins 1.0.0 manifest"
+  },
+  "host_installation": "unverified",
+  "ci": "query_remote_run"
+}

@@ -2,12 +2,13 @@
 from .git import FlowError, oid, report, require_repo, run, text
 from .policy import load, role_for
 from .provenance import read_origins
+from .layout import state_file
 from .storage import atomic_json, locked, read_json, safe_dir
 
 
 def resume(path,operation_id=None,apply=False):
     facts=require_repo(path);policy,active=load(facts)
-    file=safe_dir(facts['git_dir'],'gitflow')/'journal.json'
+    file=state_file(facts, 'journal.json')
     journal=read_json(file) if file.exists() else {'entries':[]}
     if not operation_id:
         return report('recovery.resume',facts=facts,journal=journal,
@@ -50,7 +51,8 @@ def resume(path,operation_id=None,apply=False):
         return entry
     result=report('recovery.resume','applied' if apply else 'preview',operation_id=operation_id,replayed=False)
     if apply:
-        with locked(facts['common_dir']):
+        with locked(facts):
+            file=state_file(facts, 'journal.json')
             journal=read_json(file);entry=verify()
             entry['status']='complete';entry['resolution']='observed_complete';entry['after']=require_repo(path)
             atomic_json(file,journal)

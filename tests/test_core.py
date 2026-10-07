@@ -164,10 +164,11 @@ class CoreTests(GitTestCase):
         self.assertNotEqual(r['git_dir'], r['common_dir'])
         self.cli('gate', other, '--action', 'commit')
 
-    def test_local_policy_is_not_written_into_worktree(self):
+    def test_local_policy_has_no_shared_definition(self):
         self.repository()
         self.activate(mode='local')
-        self.assertFalse((self.path / '.gitflow').exists())
+        self.assertFalse((self.path / '.gitflow/workflow.json').exists())
+        self.assertEqual(self.git('status', '--porcelain'), '')
         self.cli('gate', self.path, '--action', 'commit', code=1)
 
     def test_detached_head_commit_is_unverified(self):

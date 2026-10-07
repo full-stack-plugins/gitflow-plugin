@@ -5,6 +5,7 @@ from .git import FlowError, discover, oid, reason, report, require_repo, run, te
 from .policy import load, role_for
 from .service import gate
 from .provenance import read_origins
+from .layout import state_file
 from .storage import atomic_json, locked, read_json, safe_dir
 
 
@@ -56,14 +57,14 @@ def execute(facts, action, commands, apply=False, update=None):
                     before={k:facts[k] for k in ('branch','head','ref_oids','operation_states')})
     if not apply:
         return result
-    with locked(facts['common_dir']):
+    with locked(facts):
         now = require_repo(facts['root'])
         if any(now[k] != facts[k] for k in ('branch','head','branches','ref_oids','dirty','operation_states')):
             raise FlowError('repository_changed', '仓库身份发生变化，需重新预览。')
         _, active = load(now)  # 候选漂移再次检查，不能在等待锁期间换约定。
         if facts.get('policy_sha256') != active['sha256']:
             raise FlowError('policy_changed', '规划时的生效修订已变化，请重新预览。')
-        journal_file = safe_dir(facts['git_dir'], 'gitflow') / 'journal.json'
+        journal_file = state_file(facts, 'journal.json')
         journal = read_json(journal_file) if journal_file.exists() else {'schema_version':'1.0.0','entries':[]}
         if not isinstance(journal, dict) or journal.get('schema_version') != '1.0.0' or not isinstance(journal.get('entries'), list) or any(not isinstance(e,dict) or e.get('status') not in ('running','unknown','incomplete','complete') or not isinstance(e.get('steps'),list) for e in journal.get('entries',[])):
             raise FlowError('journal_invalid', '操作日志结构损坏，先恢复可信记录。')
@@ -248,7 +249,7 @@ def recovery(path, operation, target=None, commit=None, apply=False, operation_i
         from .resume import resume
         return resume(path, operation_id, apply)
     if operation == 'diagnose':
-        file=safe_dir(facts['git_dir'],'gitflow')/'journal.json'
+        file=state_file(facts, 'journal.json')
         journal=read_json(file) if file.exists() else {'entries':[]}
         result=report('recovery.'+operation,facts=facts,journal=journal,
                       next_actions=[{'action':'inspect_current_state','message':'按实际 HEAD/冲突复核；resume 不重放已提交步骤。'}])

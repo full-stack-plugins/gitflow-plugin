@@ -2,7 +2,7 @@
 
 ## 规则事实源
 
-先读项目 AGENTS.md/CLAUDE.md/CONTRIBUTING、发布文档与已有 Git 约定。规范不得由远端默认分支或名字推断。共享模式 `.gitflow/workflow.json` 是定义；生成的 workflow.md 只是说明。插件在 `git rev-parse --path-format=absolute --git-common-dir` 对应目录的 gitflow/activation.json 保存已确认快照。候选修订须预览并显式激活，编辑候选不会立即放宽门禁。local 模式只在 Git 元数据中保存规范，不随 clone 分发。
+先读项目 AGENTS.md/CLAUDE.md/CONTRIBUTING、发布文档与已有 Git 约定。规范不得由远端默认分支或名字推断。共享模式 `.gitflow/workflow.json` 是定义；生成的 workflow.md 只是说明。插件在项目根 `.gitflow/state/activation.json` 保存已确认快照，`origins.json` 保存创建来源，`worktrees/<id>/journal.json` 隔离各工作树日志。多个 worktree 共用锚定项目的 state/；Git 本地配置只保存定位信息，info/exclude 排除 state/。候选修订须预览并显式激活，编辑候选不会立即放宽门禁。local 模式仅写 `.gitflow/state/`，不写共享定义，不随 clone 分发。旧 Git 元数据中的 gitflow/ 只读兼容，显式 apply 时迁移并保留备份；冲突或自定义 Hook 不能自动覆盖。
 
 没有安装插件时依本文步骤读取、解释并人工逐条核验；不要声称插件门禁或已激活快照存在。仅有文档允许提出候选规则，不自动授权初始化、创建/切换分支、合并、提交、推送、清理或发布。用户已有明确授权持续有效；新的影响需明确范围。
 

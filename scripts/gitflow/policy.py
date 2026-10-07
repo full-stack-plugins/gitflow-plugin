@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 from .git import FlowError, report, reason, require_repo, valid_branch
+from .layout import state_file
 from .storage import atomic_json, locked, read_json, safe_dir
 
 ASSETS = Path(__file__).resolve().parents[2] / 'profiles'
@@ -95,7 +96,7 @@ def role_for(policy, name):
 
 
 def activation_path(facts):
-    return safe_dir(facts['common_dir'], 'gitflow') / 'activation.json'
+    return state_file(facts, 'activation.json')
 
 
 def load(facts):
@@ -130,7 +131,7 @@ def write_activation(facts, policy, mode):
         if role['name'] and not valid_branch(facts['root'], role['name']):
             raise FlowError('policy_branch_name_invalid', '规则含 Git 不接受的固定分支名称。')
     active = {'schema_version': '1.0.0', 'mode': mode, 'policy': policy, 'sha256': digest(policy)}
-    atomic_json(activation_path(facts), active)
+    atomic_json(state_file(facts, 'activation.json', reading=False), active)
     return active
 
 
@@ -155,7 +156,8 @@ def activate(path, apply=False):
     result = report('policy.activate', 'applied' if apply else 'preview', profile=policy['profile'],
                     revision=policy['revision'], policy_sha256=digest(policy))
     if apply:
-        with locked(facts['common_dir']):
+        with locked(facts):
+            active_file = activation_path(facts)
             current_old = read_json(active_file) if active_file.exists() else None
             if current_old != old or (mode == 'shared' and digest(validate(read_json(candidate))) != candidate_sha):
                 raise FlowError('policy_changed', '候选或激活身份已变化，请重新预览。')

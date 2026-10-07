@@ -17,7 +17,10 @@ def initialize(path, profile=None, mode='shared', apply=False, initialize_git=Fa
         policy, active = load(facts)
         if (profile and profile != policy['profile']) or mode != active['mode']:
             raise FlowError('policy_already_exists', '已有规范不能由 init 替换，请提出候选修订并 activate。')
-        return report('init', profile=policy['profile'], unchanged=True)
+        if apply:
+            with locked(facts):
+                load(facts)
+        return report('init', 'applied' if apply else 'allow', profile=policy['profile'], unchanged=True)
     candidate = safe_dir(facts['root'], '.gitflow') / 'workflow.json'
     if candidate.exists():
         policy = validate(read_json(candidate))
@@ -40,7 +43,7 @@ def initialize(path, profile=None, mode='shared', apply=False, initialize_git=Fa
     if absent:
         run(path, 'init', '-b', 'main')
         facts = require_repo(path)
-    with locked(facts['common_dir']):
+    with locked(facts):
         if mode == 'shared':
             if candidate.exists() and digest(validate(read_json(candidate))) != digest(policy):
                 raise FlowError('policy_changed', '候选规则已变化，请重新预览。')

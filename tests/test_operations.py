@@ -97,7 +97,7 @@ class OperationTests(GitTestCase):
 
     def test_journal_has_before_after_and_recovery_diagnoses(self):
         self.ready();r=self.cli('branch',self.path,'--operation','create','--name','feature/log','--source','develop','--apply')
-        journal=Path(self.git('rev-parse','--absolute-git-dir'))/'gitflow'/'journal.json'
+        journal=self.path/'.gitflow/state/worktrees/main/journal.json'
         entries=json.loads(journal.read_text())['entries']
         self.assertEqual(entries[-1]['id'],r['operation_id'])
         self.assertEqual(entries[-1]['status'],'complete')

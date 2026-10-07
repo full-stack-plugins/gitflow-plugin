@@ -36,5 +36,5 @@ if __name__=='__main__':
             if (ROOT/directory).exists():shutil.rmtree(ROOT/directory)
             shutil.copytree(source/directory,ROOT/directory,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
         shutil.copyfile(source/'sources.json',ROOT/'sources.json')
-        lock.write_text(json.dumps({'schema_version':'1.0.0','source_package':'full-stack-skills/git-skills','source_version':'0.1.0','files':files(ROOT)},ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+        lock.write_text(json.dumps({'schema_version':'1.0.0','source_package':'full-stack-skills/git-skills','source_version':json.loads((source/'.claude-plugin/plugin.json').read_text())['version'],'files':files(ROOT)},ensure_ascii=False,sort_keys=True,indent=2)+'\n')
         print(json.dumps({'decision':'applied','files':len(files(ROOT))}))

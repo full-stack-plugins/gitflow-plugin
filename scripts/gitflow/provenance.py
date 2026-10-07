@@ -2,7 +2,8 @@
 import re
 from .git import FlowError, oid, run, valid_branch
 from .policy import role_for
-from .storage import read_json, safe_dir
+from .storage import read_json
+from .layout import state_file
 
 
 def well_formed(value):
@@ -13,12 +14,12 @@ def well_formed(value):
 
 
 def read_origins(facts, strict=True):
-    path=safe_dir(facts['common_dir'],'gitflow')/'origins.json'
+    path=state_file(facts, 'origins.json')
     items=read_json(path) if path.exists() else {}
     if not isinstance(items,dict):raise FlowError('origins_invalid','来源记录必须是分支映射，变更前恢复可信结构。')
     if strict and any(not isinstance(k,str) or not valid_branch(facts['root'],k) or not well_formed(v) for k,v in items.items()):
         raise FlowError('origins_invalid','来源记录字段损坏，不能在写操作后才发现。')
-    return path,items
+    return state_file(facts, 'origins.json', reading=False),items
 
 
 def trusted(facts,policy,active,name,value):

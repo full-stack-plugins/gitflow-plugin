@@ -1,0 +1,72 @@
+{
+  "version": "0.1.5",
+  "date": "2026-10-07",
+  "requirements": [
+    "R23",
+    "R24",
+    "R25"
+  ],
+  "test_count": 91,
+  "storage_tests": 10,
+  "tests": "PASS",
+  "environment": {
+    "python": "3.14.3",
+    "git": "git version 2.48.1",
+    "os": "Darwin"
+  },
+  "fingerprint_algorithm": "sha256(sorted relative posix path + NUL + bytes + NUL)",
+  "runtime_sha256": "df1b9f6191efac7d9c48a0078d081c10060c498af9b8e0a54489b42e17bc357c",
+  "tests_sha256": "9e2258f40666ba0e3f4bb29ae84994cb27d4c184dda1acca5c46eec547471785",
+  "spec_sha256": "4eef67c81e1c41faf6942d739a39ab3e42e22206cef245e97a79ce0751b80ffd",
+  "skills_lock_sha256": "19f75ba5a87c05f5493dbedba03b662933ca631b547d2a0cb97ef67db95d912d",
+  "test_log_sha256": "a7814beb81c4b7ac798ef70ea63afc3170034e4a9b66df4f898eabef8aac6721",
+  "checks": {
+    "package": "PASS",
+    "vendor_files": 90,
+    "skills": "9 validate and quick_validate PASS",
+    "trace": [
+      {
+        "skill": "git-audit",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-awesome",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-branch",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-commit",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-init",
+        "overall": 4.46
+      },
+      {
+        "skill": "git-recovery",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-release",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-sync",
+        "overall": 4.43
+      },
+      {
+        "skill": "git-workflow",
+        "overall": 4.46
+      }
+    ]
+  },
+  "external_evidence": {
+    "host_installation": "not_run",
+    "host_event_integration": "not_run",
+    "remote_ci": "query exact published commit",
+    "hosted_branch_protection": "not_run"
+  }
+}

@@ -57,13 +57,15 @@ def atomic_json(path, value):
 
 
 @contextmanager
-def locked(base):
+def locked(facts):
     """只在显式变更时创建锁，不让只读查询写入。"""
     try:
         import fcntl
     except ImportError as exc:
         raise FlowError('platform_unsupported', '写操作当前需要 POSIX 文件锁。') from exc
-    directory = safe_dir(base, 'gitflow')
+    from .layout import migration_plan, prepare, state_dir
+    directory = state_dir(facts)
+    migration_plan(facts, directory)  # 写入前验证路径与冲突。
     directory.mkdir(parents=True, exist_ok=True)
     lock = directory / 'state.lock'
     if lock.is_symlink():
@@ -74,6 +76,22 @@ def locked(base):
             fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as exc:
             raise FlowError('operation_busy', '另一 GitFlow 操作占用此仓库，请稍后复核。') from exc
-        yield
+        # 同时持有旧布局的锁，避免迁移时与旧版本的变更交错。
+        legacy_fds = []
+        try:
+            plan = migration_plan(facts, directory)
+            for old, _ in plan[0]:
+                old_lock = old / 'state.lock'
+                old_fd = os.open(old_lock, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
+                legacy_fds.append(old_fd)
+                try:
+                    fcntl.flock(old_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError as exc:
+                    raise FlowError('operation_busy', '旧版本操作占用状态，稍后再迁移。') from exc
+            prepare(facts, directory, migration_plan(facts, directory))
+            yield
+        finally:
+            for old_fd in legacy_fds:
+                os.close(old_fd)
     finally:
         os.close(fd)

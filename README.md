@@ -2,7 +2,7 @@
 
 <img src="assets/logo.png" width="160" alt="GitFlow 分支与汇合标志">
 
-让 AI 按项目约定使用 Git：仅在 Git 项目中自动触发，进入项目先识别管理状态与规则，提交前校验角色，创建分支检查基线，发布逐目标记录回灌。当前版本 0.1.4，Python 3.11+、Git 2.41+、macOS/Linux，无运行时第三方依赖。
+让 AI 按项目约定使用 Git：仅在 Git 项目中自动触发，进入项目先识别管理状态与规则，提交前校验角色，创建分支检查基线，发布逐目标记录回灌。当前版本 0.1.5，Python 3.11+、Git 2.41+、macOS/Linux，无运行时第三方依赖。
 
 九技能来自独立 git-skills 包；插件内是锁定副本。可移植根 plugin.json/mcp.json 遵循 Agent Plugins 1.0.0。Claude/Codex/ZCode 清单是宿主兼容产物；本次未安装到宿主，不能据此宣称宿主自动加载、事件格式或持久化目录已经验收。
 
@@ -54,9 +54,25 @@ python3 /absolute/gitflow-plugin/scripts/gitflow.py gate PROJECT --action commit
 
 ## 项目规范与存储
 
-共享定义是 .gitflow/workflow.json，Markdown 是生成说明；建议随正常代码交付版本化。Git common-dir/gitflow/activation.json 保存确认快照与摘要；origins.json 保存插件创建来源；当前 Git dir/gitflow/journal.json 保存当前 worktree 操作步骤。绝不拼接项目 .git 作为唯一目录。local 模式只存元数据，不随 clone 分发。
+项目数据统一放在仓库根目录 `.gitflow/`：
 
-规则支持闭合的角色、命名、长期覆盖、允许提交、创建来源、合入目标、合并与消息策略、主远端和协作模式。候选变更不会直接弱化门禁，激活时修订递增。例外必须通过明确候选修订；没有临时 --no-verify 参数。用户可直接改 Git 元数据或禁用 Hook，因此这不是对拥有本机写权限用户的安全隔离。
+```text
+.gitflow/
+  workflow.json                 # 共享规则定义，建议提交
+  workflow.md                   # 生成说明
+  state/                        # 本机状态，Git 本地 exclude 排除
+    activation.json             # 已确认规则与摘要
+    origins.json                # 分支创建来源
+    worktrees/<id>/journal.json # 各工作树独立日志
+    native-runtime/             # 可选的原生 Hook 运行时
+    legacy/<id>/                # 旧状态迁移备份
+```
+
+多个 worktree 共用锚定工作树的 state/；Git 本地 `gitflow.statePath` 保存相对定位信息，支持 `.git` 文件与 separate-git-dir。local 模式仅写 state/，不生成共享定义、不随 clone 分发。原生入口仍由 Git 自己的 hooks 目录触发。锚定工作树不可用时返回未验证，不静默创建另一套规则。
+
+旧 Git 目录中的 `gitflow/` 保持只读兼容，首次显式 `--apply`（包括重复 `init`）迁移到上述目录并保留备份。新旧数据冲突、符号链接或已编辑的原生 Hook 会阻止自动迁移；读取和预览不迁移。
+
+规则支持闭合的角色、命名、长期覆盖、允许提交、创建来源、合入目标、合并与消息策略、主远端和协作模式。候选变更不会直接弱化门禁，激活时修订递增。例外必须通过明确候选修订；没有临时 --no-verify 参数。用户可直接改本机状态或禁用 Hook，因此这不是对拥有本机写权限用户的安全隔离。
 
 八模板及来源见 profiles/、sources.json。Fork 作为独立协作模式；模板命名、main 映射和保护为项目约定。trunk-based 是受审查短分支变体，分支寿命/数量是协作目标，首版不声称已自动度量。Git-maintainer 与 Microsoft 传播方向分别建模。
 
@@ -84,15 +100,15 @@ PreToolUse 按 `git -C`（含 `-Cpath`）及简单 `cd &&` 的实际目标检测
 python3 -m unittest discover -s tests -p "test_*.py"
 python3 scripts/validate_package.py
 python3 scripts/vendor_skills.py --check
-python3 scripts/package.py --output /absolute/output/gitflow-0.1.4.zip
+python3 scripts/package.py --output /absolute/output/gitflow-0.1.5.zip
 ```
 
-validator 使用标准库核对结构、路径、版本、技能与模板摘要；开发时另用已存在的 jsonschema 验证官方 schema。发布前更新独立技能包再显式 vendor；项目源码已推送 GitHub；发布来源与资产固定到 v0.1.4。
+validator 使用标准库核对结构、路径、版本、技能与模板摘要；开发时另用已存在的 jsonschema 验证官方 schema。发布前更新独立技能包再显式 vendor；项目源码已推送 GitHub；发布来源与资产固定到 v0.1.5。
 
 [规格与验收](docs/superpowers/specs/2026-10-07-gitflow.md)；[验证报告](docs/verification.md)。真实临时本地/bare 远端测试与宿主安装、托管保护、CI、生产发布是不同证据。
 
 ## 市场与视觉资产
 
-GitFlow 已收录到 [Full Stack Plugins](https://github.com/partme-ai/full-stack-plugins)，版本 v0.1.4。Codex、ZCode、Kimi 市场清单固定到同一 tag 与正式 Release。Kimi 适配提供九技能和 stdio MCP；宿主事件 Hook 接线与三个宿主的实际安装加载仍未验证。
+GitFlow 已收录到 [Full Stack Plugins](https://github.com/partme-ai/full-stack-plugins)，版本 v0.1.5。Codex、ZCode、Kimi 市场清单固定到同一 tag 与正式 Release。Kimi 适配提供九技能和 stdio MCP；宿主事件 Hook 接线与三个宿主的实际安装加载仍未验证。
 
 Logo 基于 Jason Long 创作的 Git 官方标志二次创作：保留橙色菱形，以直线主干、平行分支与斜向汇合表现工作流。原始标志与衍生图像按 CC BY 3.0 署名，代码仍为 Apache-2.0。GitFlow 是独立插件，无 Git 项目官方背书。来源、许可和生成提示见 [资产说明](assets/README.md)。

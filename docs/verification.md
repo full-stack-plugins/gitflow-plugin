@@ -20,7 +20,7 @@
 | R02 | 九个 SKILL.md quick_validate；独立目录运行每份观察脚本、坏 .git 未验证与自包含引用校验。 |
 | R03 | core/boundaries：父仓、unborn、detached、linked worktree、损坏 Git；完整 refs 处理同名 tag。 |
 | R04 | core/onboarding：无 Git 明确 initialize-git、默认预览、既有规范不覆盖、长期缺失提示、保留人工 Markdown。 |
-| R05 | core：shared/local 激活目录、worktree 共用 common-dir。 |
+| R05 | core/storage_layout：shared/local 的 .gitflow/state/、worktree 共用状态锚点且日志隔离。 |
 | R06 | core/boundaries：候选漂移、严格布尔/字段/关系、受限正则；锁内候选/激活身份复核。 |
 | R07 | audit：长期角色覆盖、来源 OID/角色/修订/祖先结构，损坏和过期记录为未知；服务端保护单列未验证。 |
 | R08 | operations：创建/命名/基线、切换 dirty 保护、worktree 占用、重命名、未合入删除、reconcile。 |
@@ -65,3 +65,9 @@
 [v0.1.3 CI](https://github.com/full-stack-plugins/gitflow-plugin/actions/runs/37640761024) 在 macOS/Python 3.13 通过 81 项，Linux/Python 3.11 全量执行 81 项、失败 5 项原生 Hook 测试（commit-msg 参数 -- 未被旧 argparse 解析）。这是真实兼容性失败，不能算 Linux 验证通过。
 
 修复：Hook/native 参数入口使用 parse_intermixed_args，既有真实原生提交/推送/集成测试负责验证；重新执行完整本地 81 项及双平台 CI。当前补丁证据为 [v0.1.4 指纹](evidence/project-activation-v0.1.4.json) 与 [v0.1.4 完整输出](evidence/project-activation-v0.1.4-output.txt)。v0.1.3 的本地指纹保留为历史；公开版本的源码绑定结果由 GitHub Actions 记录。
+
+## v0.1.5：统一 .gitflow/（R23–R25）
+
+当前源码本地完整回归 91/91 通过，新增 10 项真实 Git 存储测试。覆盖 local 状态忽略、linked worktree 共用规则与日志隔离、separate-git-dir、只读不迁移、旧数据及 linked 日志迁移、来源后续写入、冲突/符号链接保留、原生 Hook 重定位与自定义 Hook 保护。九技能 validate/quick_validate 与 TRACE 完成，快照 90 文件通过；源码与日志摘要见 `docs/evidence/storage-layout-v0.1.5.json`。
+
+最初目标测试有 6 项行为红灯及 1 项测试 CLI 参数错误；参数修正后进入实现。第一次完整回归另暴露 2 项测试夹具目录未创建和 1 项消息断言不匹配，均修正后完整重跑。已有 Python 环境缺少 PyYAML，quick_validate 改用已安装的 Anaconda Python 3.13 执行，未安装依赖。远端 CI 以实际发布 commit 查询；CLI/MCP/Hook 回放不代表实际宿主安装验收。

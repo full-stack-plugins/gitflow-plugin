@@ -10,6 +10,7 @@ from .git import FlowError, discover, is_git_project, oid, reason, report, requi
 from .operations import ancestor, branch, sync
 from .policy import load, role_for
 from .service import gate
+from .layout import state_dir, state_file
 from .storage import locked, read_json, safe_dir
 
 READ={'status','diff','log','show','rev-parse','rev-list','for-each-ref','ls-files','ls-remote','merge-base','check-ref-format','remote','worktree','config','tag','branch'}
@@ -159,9 +160,9 @@ def install_native(path,apply=False):
         raise FlowError('hooks_existing','已有 Hook，保留原文件；请审查后在现有管理器内调用 native 入口。')
     result=report('hooks.install','applied' if apply else 'preview',hooks=['commit-msg','pre-push'])
     if apply:
-        with locked(facts['common_dir']):
+        with locked(facts):
             root=Path(__file__).resolve().parents[2]
-            runtime=safe_dir(facts['common_dir'],'gitflow/native-runtime')
+            runtime=safe_dir(state_dir(facts), 'native-runtime')
             if runtime.exists():raise FlowError('native_runtime_existing','已有运行时，不自动覆盖。')
             runtime.mkdir(parents=True)
             shutil.copytree(root/'scripts',runtime/'scripts',ignore=shutil.ignore_patterns('__pycache__'))
@@ -177,7 +178,7 @@ def install_native(path,apply=False):
 def managed_integration(facts):
     """集成提交只接受当前工作树日志绑定的源/目标/OID与生效修订。"""
     policy, active = load(facts)
-    file = safe_dir(facts['git_dir'], 'gitflow') / 'journal.json'
+    file = state_file(facts, 'journal.json')
     journal = read_json(file)
     entries = journal.get('entries', [])
     if not entries or entries[-1].get('status') != 'running':

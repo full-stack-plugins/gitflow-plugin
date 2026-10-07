@@ -69,8 +69,8 @@ class BoundaryTests(GitTestCase):
 
     def test_running_journal_blocks_unrelated_apply_until_review(self):
         self.ready()
-        file=Path(self.git('rev-parse','--absolute-git-dir'))/'gitflow/journal.json'
-        file.parent.mkdir(exist_ok=True)
+        file=self.path/'.gitflow/state/worktrees/main/journal.json'
+        file.parent.mkdir(parents=True,exist_ok=True)
         file.write_text(json.dumps({'schema_version':'1.0.0','entries':[{'id':'interrupted','action':'sync.push','status':'running','before':{},'steps':[],'commands':[]}]}))
         self.cli('branch',self.path,'--operation','create','--name','feature/new','--source','develop','--apply',code=3)
         self.assertNotIn('feature/new',self.git('branch','--format=%(refname:short)'))
@@ -97,25 +97,25 @@ class BoundaryTests(GitTestCase):
         self.assertEqual(r['remaining_targets'],[])
 
     def test_invalid_origins_fail_before_creating_any_ref(self):
-        self.ready();file=Path(self.git('rev-parse','--absolute-git-dir'))/'gitflow/origins.json';file.write_text('[]')
+        self.ready();file=self.path/'.gitflow/state/origins.json';file.write_text('[]')
         self.cli('branch',self.path,'--operation','create','--name','feature/bad','--source','develop','--apply',code=3)
         self.assertNotIn('feature/bad',self.git('branch','--format=%(refname:short)'))
 
     def test_incomplete_origin_is_unknown_in_audit(self):
         self.ready();self.git('branch','feature/a','develop')
-        file=Path(self.git('rev-parse','--absolute-git-dir'))/'gitflow/origins.json';file.write_text(json.dumps({'feature/a':{}}))
+        file=self.path/'.gitflow/state/origins.json';file.write_text(json.dumps({'feature/a':{}}))
         r=self.cli('audit',self.path)
         self.assertTrue(any(o['code']=='branch_origin_unknown' and o.get('branch')=='feature/a' for o in r['observations']))
 
     def test_corrupt_journal_entry_does_not_crash_after_mutating(self):
-        self.ready();file=Path(self.git('rev-parse','--absolute-git-dir'))/'gitflow/journal.json';file.write_text(json.dumps({'schema_version':'1.0.0','entries':[None]}))
+        self.ready();file=self.path/'.gitflow/state/worktrees/main/journal.json';file.parent.mkdir(parents=True,exist_ok=True);file.write_text(json.dumps({'schema_version':'1.0.0','entries':[None]}))
         self.cli('branch',self.path,'--operation','create','--name','feature/bad','--source','develop','--apply',code=3)
         self.assertNotIn('feature/bad',self.git('branch','--format=%(refname:short)'))
 
     def test_resume_verifies_completed_merge_without_repeating_commit(self):
         self.ready();self.git('switch','-c','feature/new','develop');(self.path/'new').write_text('new');self.git('add','.');self.git('commit','-m','new');self.git('switch','develop')
         result=self.cli('sync',self.path,'--operation','merge','--source','feature/new','--apply')
-        file=Path(self.git('rev-parse','--absolute-git-dir'))/'gitflow/journal.json';journal=json.loads(file.read_text())
+        file=self.path/'.gitflow/state/worktrees/main/journal.json';journal=json.loads(file.read_text())
         journal['entries'][-1]['status']='unknown';journal['entries'][-1]['steps'][-1]['status']='running';file.write_text(json.dumps(journal))
         before=self.git('rev-parse','HEAD')
         self.cli('recovery',self.path,'--operation','resume','--operation-id',result['operation_id'],'--apply')

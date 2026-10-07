@@ -1,0 +1,16 @@
+{
+  "version": "0.1.5",
+  "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "tag": "v0.1.5",
+  "sha256": "e408e4a95bd21cef24df29ae57b69ee783024e6f6dd921ae545d0f5eaa80c370",
+  "bytes": 359436,
+  "local_validation": {
+    "all_tests": 91,
+    "storage_tests": 10,
+    "vendor_files": 90,
+    "manifest_mcp_version": "0.1.5"
+  },
+  "source_evidence": "docs/evidence/storage-layout-v0.1.5.json",
+  "host_installation": "unverified",
+  "ci": "query exact published commit"
+}

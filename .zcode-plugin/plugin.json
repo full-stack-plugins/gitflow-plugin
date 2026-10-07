@@ -1,0 +1,19 @@
+{
+  "name": "gitflow",
+  "version": "0.1.0",
+  "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
+  "author": {
+    "name": "Full Stack Skills"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "git",
+    "gitflow",
+    "branch",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "homepage": "https://github.com/full-stack-plugins/gitflow-plugin"
+}

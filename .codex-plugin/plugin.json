@@ -1,0 +1,26 @@
+{
+  "name": "gitflow",
+  "version": "0.1.0",
+  "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
+  "author": {
+    "name": "Full Stack Skills"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "git",
+    "gitflow",
+    "branch",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "GitFlow",
+    "shortDescription": "项目 Git 分支规范治理",
+    "defaultPrompt": [
+      "识别本项目 Git 规范并执行只读审计",
+      "预览符合项目工作流的任务分支"
+    ]
+  },
+  "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "homepage": "https://github.com/full-stack-plugins/gitflow-plugin"
+}

@@ -1,0 +1,10 @@
+{
+  "version": "0.1.0",
+  "archive": "gitflow-0.1.0.zip",
+  "sha256": "4260f07307ee71ffad9b5f590dcb7ea399672000bda701623ea343009939faa6",
+  "bytes": 205094,
+  "validation": "GitHub source delivery package: unpacked CLI/lock/validator PASS",
+  "github_repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "host_install": "not_run",
+  "github_release": "not_created"
+}

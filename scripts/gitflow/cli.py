@@ -1,0 +1,96 @@
+"""CLI 参数边界与统一 JSON 错误结果。"""
+import argparse
+import json
+from .git import FlowError, VERSION, discover, reason, report
+from .policy import activate
+from .service import audit, gate, initialize
+from .operations import branch, sync, release, recovery
+from .context import context
+from .hooks import hook_main, install_native, native_main
+
+
+class FlowParser(argparse.ArgumentParser):
+    """用法错误也输出机器可读结果，退出码为 2。"""
+    def error(self, message):
+        print(json.dumps(report('usage','error',[reason('usage_invalid',message)]),ensure_ascii=False))
+        raise SystemExit(2)
+
+
+def parser():
+    p = FlowParser(description='项目 Git 分支治理；默认只读或预览。')
+    p.add_argument('command', choices=['version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks'])
+    p.add_argument('path', nargs='?', default='.')
+    p.add_argument('--json', action='store_true')
+    p.add_argument('--profile')
+    p.add_argument('--mode', choices=['shared', 'local'], default='shared')
+    p.add_argument('--apply', action='store_true')
+    p.add_argument('--initialize-git', action='store_true')
+    p.add_argument('--operation', default='activate')
+    p.add_argument('--action', choices=['commit', 'push', 'pull', 'merge', 'rebase'])
+    p.add_argument('--source')
+    p.add_argument('--target')
+    p.add_argument('--message')
+    p.add_argument('--name')
+    p.add_argument('--remote')
+    p.add_argument('--targets')
+    p.add_argument('--commit')
+    p.add_argument('--choice')
+    p.add_argument('--operation-id')
+    return p
+
+
+def dispatch(a):
+    if a.command == 'version':
+        return report('version', version=VERSION)
+    if a.command == 'discover':
+        return discover(a.path)
+    if a.command == 'init':
+        return initialize(a.path, a.profile, a.mode, a.apply, a.initialize_git)
+    if a.command == 'audit':
+        return audit(a.path)
+    if a.command == 'policy':
+        if a.operation != 'activate':
+            raise FlowError('operation_unknown', '未知规范操作。')
+        return activate(a.path, a.apply)
+    if a.command == 'gate':
+        if not a.action:
+            raise FlowError('action_required', 'gate 需要 action。')
+        return gate(a.path, a.action, a.source, a.target, a.message)
+    if a.command == 'branch':
+        return branch(a.path, a.operation, a.name, a.source, a.target, a.apply)
+    if a.command == 'sync':
+        return sync(a.path, a.operation, a.source, a.target, a.remote, a.apply)
+    if a.command == 'release':
+        return release(a.path, a.operation, a.name, a.source, a.targets, a.commit, a.apply)
+    if a.command == 'recovery':
+        return recovery(a.path, a.operation, a.target, a.commit, a.apply, a.operation_id)
+    if a.command == 'context':
+        return context(a.path, a.choice, a.apply)
+    if a.command == 'hooks':
+        return install_native(a.path, a.apply)
+    raise FlowError('command_unknown', '命令未实现。')
+
+
+def main(argv=None):
+    import sys
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] == 'mcp':
+        from .mcp import serve
+        return serve()
+    if argv and argv[0] in ('hook', 'native'):
+        hp = argparse.ArgumentParser()
+        hp.add_argument('command')
+        hp.add_argument('--event')
+        hp.add_argument('--kind')
+        hp.add_argument('arguments', nargs='*')
+        h = hp.parse_args(argv)
+        return hook_main(h.event) if h.command == 'hook' else native_main(h.kind, h.arguments)
+    a = parser().parse_args(argv)
+    try:
+        result = dispatch(a)
+    except FlowError as exc:
+        result = report(a.command, exc.decision, [reason(exc.code, exc.message)])
+    except (OSError, UnicodeError, ValueError, KeyError, TypeError, AttributeError):
+        result = report(a.command, 'error', [reason('internal_error', '处理失败，不能采用不完整结果。')])
+    print(json.dumps(result, ensure_ascii=False, indent=None if a.json else 2))
+    return {'allow': 0, 'preview': 0, 'applied': 0, 'deny': 1, 'unverified': 3, 'error': 4}[result['decision']]

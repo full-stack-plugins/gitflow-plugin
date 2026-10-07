@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-10-07",
+  "sources": [
+    "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+  ],
+  "runtime_fetch": false
+}

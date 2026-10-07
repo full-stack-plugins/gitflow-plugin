@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "gitflow": {
+      "command": "python3",
+      "args": [
+        "${PLUGIN_ROOT}/scripts/gitflow.py",
+        "mcp"
+      ]
+    }
+  }
+}

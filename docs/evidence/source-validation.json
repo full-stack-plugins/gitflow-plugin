@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-07",
+  "environment": {
+    "git": "2.48.1",
+    "os": "Darwin",
+    "python": "3.14.3"
+  },
+  "external_evidence": {
+    "actual_host_install": "not_run",
+    "host_event_integration": "not_run",
+    "hosted_branch_protection": "not_run",
+    "linux_execution": "not_run",
+    "public_release": "not_run",
+    "remote_ci": "not_run",
+    "windows_write_operations": "unsupported"
+  },
+  "portable_official_schemas": [
+    "plugin.json",
+    "mcp.json"
+  ],
+  "quick_validate": "9/9",
+  "runtime_sha256": "cf44c0e5cef923f0edabf30238e7a2198702d83274caee1390f9c744ea906cd2",
+  "schema_version": "1.0.0",
+  "skill_reference_validation": "PASS",
+  "skills_lock_sha256": "693401d7b8cf4f48736e0a9011533196eafcbbf5487ad0c0d6c9db32428dcbb8",
+  "skills_snapshot_files": 90,
+  "test_count": 69,
+  "test_log_sha256": "de11d76e2527036876be5587bc52efc13bc23ce82d098488c63992198ff40ccf",
+  "tests": "PASS",
+  "tests_sha256": "f9a2947248c60ad47c0a8ee9f77672829bb8dc804bb54bce2fc9c42bb94fd9e2",
+  "trace": {
+    "git-audit": 4.43,
+    "git-awesome": 4.43,
+    "git-branch": 4.43,
+    "git-commit": 4.43,
+    "git-init": 4.46,
+    "git-recovery": 4.43,
+    "git-release": 4.43,
+    "git-sync": 4.43,
+    "git-workflow": 4.46
+  },
+  "version": "0.1.0"
+}

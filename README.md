@@ -2,7 +2,7 @@
 
 <img src="assets/logo.png" width="160" alt="GitFlow 分支与汇合标志">
 
-让 AI 按项目约定使用 Git：仅在 Git 项目中自动触发，进入项目先识别管理状态与规则，提交前校验角色，创建分支检查基线，发布逐目标记录回灌。当前版本 0.1.3，Python 3.11+、Git 2.41+、macOS/Linux，无运行时第三方依赖。
+让 AI 按项目约定使用 Git：仅在 Git 项目中自动触发，进入项目先识别管理状态与规则，提交前校验角色，创建分支检查基线，发布逐目标记录回灌。当前版本 0.1.4，Python 3.11+、Git 2.41+、macOS/Linux，无运行时第三方依赖。
 
 九技能来自独立 git-skills 包；插件内是锁定副本。可移植根 plugin.json/mcp.json 遵循 Agent Plugins 1.0.0。Claude/Codex/ZCode 清单是宿主兼容产物；本次未安装到宿主，不能据此宣称宿主自动加载、事件格式或持久化目录已经验收。
 
@@ -84,15 +84,15 @@ PreToolUse 按 `git -C`（含 `-Cpath`）及简单 `cd &&` 的实际目标检测
 python3 -m unittest discover -s tests -p "test_*.py"
 python3 scripts/validate_package.py
 python3 scripts/vendor_skills.py --check
-python3 scripts/package.py --output /absolute/output/gitflow-0.1.3.zip
+python3 scripts/package.py --output /absolute/output/gitflow-0.1.4.zip
 ```
 
-validator 使用标准库核对结构、路径、版本、技能与模板摘要；开发时另用已存在的 jsonschema 验证官方 schema。发布前更新独立技能包再显式 vendor；项目源码已推送 GitHub；发布来源与资产固定到 v0.1.3。
+validator 使用标准库核对结构、路径、版本、技能与模板摘要；开发时另用已存在的 jsonschema 验证官方 schema。发布前更新独立技能包再显式 vendor；项目源码已推送 GitHub；发布来源与资产固定到 v0.1.4。
 
 [规格与验收](docs/superpowers/specs/2026-10-07-gitflow.md)；[验证报告](docs/verification.md)。真实临时本地/bare 远端测试与宿主安装、托管保护、CI、生产发布是不同证据。
 
 ## 市场与视觉资产
 
-GitFlow 已收录到 [Full Stack Plugins](https://github.com/partme-ai/full-stack-plugins)，版本 v0.1.3。Codex、ZCode、Kimi 市场清单固定到同一 tag 与正式 Release。Kimi 适配提供九技能和 stdio MCP；宿主事件 Hook 接线与三个宿主的实际安装加载仍未验证。
+GitFlow 已收录到 [Full Stack Plugins](https://github.com/partme-ai/full-stack-plugins)，版本 v0.1.4。Codex、ZCode、Kimi 市场清单固定到同一 tag 与正式 Release。Kimi 适配提供九技能和 stdio MCP；宿主事件 Hook 接线与三个宿主的实际安装加载仍未验证。
 
 Logo 基于 Jason Long 创作的 Git 官方标志二次创作：保留橙色菱形，以直线主干、平行分支与斜向汇合表现工作流。原始标志与衍生图像按 CC BY 3.0 署名，代码仍为 Apache-2.0。GitFlow 是独立插件，无 Git 项目官方背书。来源、许可和生成提示见 [资产说明](assets/README.md)。

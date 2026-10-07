@@ -59,3 +59,9 @@
 - 分发：ZIP 解包后在异 cwd 重放全部无 Git Hook，随后初始化临时项目再次调用 SessionStart；CLI/MCP/原生 Hook 既有回归保持通过。
 
 本次源码、测试及输入指纹与完整输出见 [项目触发证据](evidence/project-activation.json) 和 [完整回归输出](evidence/project-activation-output.txt)。上方 0.1.0 的 69 项报告及 source-validation.json 保留为历史，不能用于证明新源码。新增 .github/workflows/validate.yml 在 Ubuntu/Python 3.11 与 macOS/Python 3.13 执行相同完整回归；实际远端结果绑定发布 commit，可从 Actions 查验。尚未进行真实宿主安装与事件接线验证。
+
+## v0.1.4 跨平台闭环补丁
+
+[v0.1.3 CI](https://github.com/full-stack-plugins/gitflow-plugin/actions/runs/37640761024) 在 macOS/Python 3.13 通过 81 项，Linux/Python 3.11 全量执行 81 项、失败 5 项原生 Hook 测试（commit-msg 参数 -- 未被旧 argparse 解析）。这是真实兼容性失败，不能算 Linux 验证通过。
+
+修复：Hook/native 参数入口使用 parse_intermixed_args，既有真实原生提交/推送/集成测试负责验证；重新执行完整本地 81 项及双平台 CI。当前补丁证据为 [v0.1.4 指纹](evidence/project-activation-v0.1.4.json) 与 [v0.1.4 完整输出](evidence/project-activation-v0.1.4-output.txt)。v0.1.3 的本地指纹保留为历史；公开版本的源码绑定结果由 GitHub Actions 记录。

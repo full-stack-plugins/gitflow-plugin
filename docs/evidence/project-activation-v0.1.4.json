@@ -1,0 +1,47 @@
+{
+  "version": "0.1.4",
+  "date": "2026-10-07",
+  "requirements": [
+    "R19",
+    "R20",
+    "R21",
+    "R22"
+  ],
+  "test_count": 81,
+  "project_activation_tests": 12,
+  "tests": "PASS",
+  "red_evidence": {
+    "initial_tests": 10,
+    "initial_behavior_failures": 27,
+    "additional_cd_dynamic_test": "failed before active-cwd refresh; passed after fix",
+    "python_3_11_native_cli": {
+      "run": 37640761024,
+      "head": "feeee793b0ad4ba66cd2fd9f74e4a397c1b6e936",
+      "linux_failures": 5,
+      "macos_tests": "81 PASS",
+      "cause": "parse_args rejects -- following mixed optional and positional arguments"
+    }
+  },
+  "environment": {
+    "python": "3.14.3",
+    "git": "git version 2.48.1",
+    "os": "Darwin"
+  },
+  "fingerprint_algorithm": "sha256(sorted relative posix path + NUL + bytes + NUL)",
+  "runtime_sha256": "e03c50f722752ce538d2874239aae0d823de14176158d3c1b756263162e52626",
+  "tests_sha256": "0c37b6ddf22fff468a012e505df50c43ee437bce56377c171a5e28801c6cc4f0",
+  "spec_sha256": "d31573207c24f0f8602ef5c3f483a0fb85785cbe1f32ed558fd5dae7ffe456cc",
+  "skills_lock_sha256": "693401d7b8cf4f48736e0a9011533196eafcbbf5487ad0c0d6c9db32428dcbb8",
+  "test_log_sha256": "a2128c9e32abf1675e7eae84589d764f52fee148bf9cf5f8be889ad37ed53b3c",
+  "checks": {
+    "package": "PASS",
+    "vendor_files": 90,
+    "manifest_mcp_version": "0.1.4"
+  },
+  "external_evidence": {
+    "host_installation": "not_run",
+    "host_event_integration": "not_run",
+    "remote_ci": "query exact published commit",
+    "hosted_branch_protection": "not_run"
+  }
+}

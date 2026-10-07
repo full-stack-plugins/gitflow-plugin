@@ -83,7 +83,8 @@ def main(argv=None):
         hp.add_argument('--event')
         hp.add_argument('--kind')
         hp.add_argument('arguments', nargs='*')
-        h = hp.parse_args(argv)
+        # Python 3.11 的普通解析不能处理选项后的星号位置参数与 --。
+        h = hp.parse_intermixed_args(argv)
         return hook_main(h.event) if h.command == 'hook' else native_main(h.kind, h.arguments)
     a = parser().parse_args(argv)
     try:

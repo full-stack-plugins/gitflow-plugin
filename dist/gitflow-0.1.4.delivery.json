@@ -1,0 +1,16 @@
+{
+  "version": "0.1.4",
+  "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "tag": "v0.1.4",
+  "sha256": "fa99ecd2978baf1ebf49b7a03862b9c12a22b317918ced226d0c53cde4c39ce5",
+  "bytes": 347329,
+  "local_validation": {
+    "all_tests": 81,
+    "project_activation_tests": 12,
+    "vendor_files": 90,
+    "manifest_mcp_version": "0.1.4"
+  },
+  "source_evidence": "docs/evidence/project-activation-v0.1.4.json",
+  "host_installation": "unverified",
+  "ci": "query exact published commit"
+}

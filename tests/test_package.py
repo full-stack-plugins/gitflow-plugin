@@ -28,6 +28,17 @@ class PackageTests(unittest.TestCase):
             self.assertEqual(p.returncode,0,p.stderr)
             result=json.loads(json.loads(p.stdout.splitlines()[1])['result']['content'][0]['text'])
             self.assertEqual(result['git_state'],'absent')
+            for event in ('SessionStart','UserPromptSubmit','PreToolUse','PostToolUse','Stop'):
+                payload={'cwd':str(temp),'tool_input':{'command':'git push --force origin main'}}
+                p=subprocess.run([sys.executable,str(packed/'scripts/gitflow.py'),'hook','--event',event],
+                                 cwd=packed,input=json.dumps(payload),text=True,capture_output=True)
+                self.assertEqual(p.returncode,0,p.stderr)
+                self.assertEqual(json.loads(p.stdout),{})
+            subprocess.run(['git','-C',str(temp),'init','-b','main'],check=True,capture_output=True)
+            p=subprocess.run([sys.executable,str(packed/'scripts/gitflow.py'),'hook','--event','SessionStart'],
+                             cwd=packed,input=json.dumps({'cwd':str(temp)}),text=True,capture_output=True)
+            self.assertEqual(p.returncode,0,p.stderr)
+            self.assertIn('已生效工作流',json.loads(p.stdout)['hookSpecificOutput']['additionalContext'])
 
     def test_snapshot_tamper_is_detected(self):
         with tempfile.TemporaryDirectory() as folder:

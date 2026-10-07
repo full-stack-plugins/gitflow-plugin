@@ -6,7 +6,7 @@ import shlex
 import shutil
 import sys
 from .context import context
-from .git import FlowError, discover, oid, reason, report, require_repo, text
+from .git import FlowError, discover, is_git_project, oid, reason, report, require_repo, text
 from .operations import ancestor, branch, sync
 from .policy import load, role_for
 from .service import gate
@@ -19,10 +19,21 @@ def decision(value,message):
     return {'hookSpecificOutput':{'hookEventName':'PreToolUse','permissionDecision':value,'permissionDecisionReason':message}}
 
 
+def git_target(path,args):
+    """解析静态 -C 目标；路径只用于检测，不执行输入命令。"""
+    while args and args[0].startswith('-C'):
+        if args[0]=='-C':
+            if len(args)<2:raise FlowError('command_unknown','git -C 缺少目录。')
+            directory=args[1];args=args[2:]
+        else:
+            directory=args[0][2:];args=args[1:]
+        path=str((Path(path)/directory).resolve())
+    return path,args
+
+
 def inspect_git(path,args):
-    while args and args[0]=='-C':
-        if len(args)<3:raise FlowError('command_unknown','git -C 缺少目录或命令。')
-        path=str((Path(path)/args[1]).resolve());args=args[2:]
+    path,args=git_target(path,args)
+    if not is_git_project(path):return None
     if not args:return None
     if args[0].startswith('-'):raise FlowError('command_unknown','Git 全局选项/配置需要单独复核。')
     verb,*rest=args
@@ -64,44 +75,57 @@ def inspect_git(path,args):
 
 
 def pretool(payload):
+    path=payload.get('cwd')
+    if not isinstance(path,str) or not path.strip():return {}
     inp=payload.get('tool_input',{})
     command=inp.get('command',inp.get('cmd')) if isinstance(inp,dict) else None
     if not isinstance(command,str):return {}
-    if len(command)>16384:return decision('ask','命令超过语义检查预算。')
-    if ('\n' in command or '\r' in command) and re.search(r'\bgit\b', command):
-        return decision('ask','多行 shell 命令必须拆分，不能把换行当普通 argv 空白。')
+    active=False;managed=False
     try:
+        active=is_git_project(path)
+        if len(command)>16384:return decision('ask','命令超过语义检查预算。') if active else {}
+        if ('\n' in command or '\r' in command) and re.search(r'\bgit\b', command):
+            return decision('ask','多行 shell 命令必须拆分，不能把换行当普通 argv 空白。') if active else {}
         if re.search(r'\bgit\b', command) and ('$(' in command or '`' in command):
-            raise FlowError('command_dynamic', 'Git 出现在动态命令替换中，必须拆分验证。')
+            if active:raise FlowError('command_dynamic', 'Git 出现在动态命令替换中，必须拆分验证。')
+            return {}
         lexer=shlex.shlex(command,posix=True,punctuation_chars=';&|<>')
         lexer.whitespace_split=True;tokens=list(lexer)
         chunks=[[]]
         for token in tokens:
             if token=='&&':chunks.append([])
             elif token in (';','|','||','&','>','<','>>','<<'):
-                if 'git' in tokens:return decision('ask','复合 shell 控制或重定向需独立 Git 操作预览。')
+                if 'git' in tokens and active:return decision('ask','复合 shell 控制或重定向需独立 Git 操作预览。')
                 return {}
             else:chunks[-1].append(token)
-        path=payload.get('cwd','.')
-        managed=False;mutation_seen=False
+        mutation_seen=False
         for chunk in chunks:
             if not chunk:continue
             if chunk[0]=='cd' and len(chunk)==2:
-                if any(x in chunk[1] for x in ('$','`','~')):raise FlowError('command_dynamic','动态 cwd 无法验证。')
-                path=str((Path(path)/chunk[1]).resolve());continue
+                if any(x in chunk[1] for x in ('$','`','~')):
+                    if active:raise FlowError('command_dynamic','动态 cwd 无法验证。')
+                    return {}
+                path=str((Path(path)/chunk[1]).resolve())
+                active=is_git_project(path)
+                continue
             if Path(chunk[0]).name=='git':
                 chunk[0]='git'
             if chunk[0]!='git':
-                if any(x=='git' for x in chunk[1:]) and chunk[0]!='echo':raise FlowError('command_wrapper','Git 包装器需独立审查。')
+                if active and any(x=='git' for x in chunk[1:]) and chunk[0]!='echo':raise FlowError('command_wrapper','Git 包装器需独立审查。')
                 continue
+            if any('$' in x or '`' in x or '\n' in x for x in chunk):
+                if active:raise FlowError('command_dynamic','动态命令或替换无法静态验证。')
+                return {}
+            target,args=git_target(path,chunk[1:])
+            if not is_git_project(target):continue
             managed=True
             if mutation_seen:raise FlowError('command_future_state','链中先前变更会改变后续 Git 身份，请拆分操作。')
-            if any('$' in x or '`' in x or '\n' in x for x in chunk):raise FlowError('command_dynamic','动态命令或替换无法静态验证。')
-            result=inspect_git(path,chunk[1:])
+            result=inspect_git(target,args)
             if result and result['decision']=='deny':return decision('deny',result['reasons'][0]['message'])
             mutation_seen=bool(result and (result['action'].startswith(('gate.','sync.'))))
         return decision('allow','已按当前项目分支规范检查；此结果不包含代码质量或用户写操作授权。') if managed else {}
     except (FlowError,ValueError) as exc:
+        if not active and not managed and not (isinstance(exc,FlowError) and exc.code=='repository_unreadable'):return {}
         return decision('deny' if isinstance(exc,FlowError) and exc.decision=='deny' else 'ask',str(exc))
 
 
@@ -113,9 +137,13 @@ def hook_main(event):
         if not isinstance(payload,dict):raise FlowError('hook_input','Hook 输入必须是对象。')
         if event=='PreToolUse':result=pretool(payload)
         elif event in ('SessionStart','UserPromptSubmit','PostToolUse','Stop'):
-            r=context(payload.get('cwd','.'))
-            result={'hookSpecificOutput':{'hookEventName':event,'additionalContext':r['context']}}
-            if event=='Stop':result={'systemMessage':r['context']}
+            path=payload.get('cwd')
+            result={}
+            if isinstance(path,str) and path.strip() and is_git_project(path):
+                r=context(path)
+                if r['facts']['git_state']!='absent':
+                    result={'hookSpecificOutput':{'hookEventName':event,'additionalContext':r['context']}}
+                    if event=='Stop':result={'systemMessage':r['context']}
         else:raise FlowError('hook_event_unknown','未知 Hook 事件。')
     except (FlowError,ValueError,OSError) as exc:
         result=decision('ask',f'GitFlow 未验证：{exc}') if event=='PreToolUse' else {'systemMessage':'GitFlow 上下文未验证；请运行 discover。'}

@@ -1,4 +1,8 @@
-# GitFlow 0.1.0 本地验证
+# GitFlow 验证记录
+
+下方首版数据为历史记录；当前 v0.1.3 的 R19–R21 证据见本文末尾。
+
+## 0.1.0 本地验证
 
 2026-10-07：本地首版实现完成。对应 [规格](superpowers/specs/2026-10-07-gitflow.md) R01–R18，未把宿主安装、CI 或发行计入完成范围。源目录未 Git 初始化，没有提交、推送、安装或修改其他项目 refs。
 
@@ -42,3 +46,16 @@
 - 同一GitFlow锁不约束外部Git；apply前重新绑定所有本地分支OID与规则修订，不能据此宣称不存在外部竞争。
 
 [原始回归输出](evidence/validation-output.txt)；[源与输入指纹](evidence/source-validation.json)。runtime_sha256的范围是scripts/*.py、profiles/*.json和schemas/*.json；tests与技能锁分别摘要，不包含本报告以避免自引用。ZIP身份在独立交付清单中记录。
+
+## v0.1.3 Git 项目触发增量（R19–R21）
+
+本次在 macOS 上执行完整 81 项真实 Git/CLI/MCP/Hook/打包测试通过，新增项目触发测试 12 项。首次目标回归在 10 项用例中出现 27 个行为断言失败：普通目录/bare/缺失 cwd 仍输出、紧凑 -C 未正确解析等；实现后全部转绿；复核另发现 cd 后动态目标沿用旧 cwd 的问题，增加红灯用例并修复，最终共 12 项触发测试通过。原先版本测试写死 0.1.0，与已发布 0.1.2 不一致，已改为运行时和清单版本一致性验证。
+
+- 普通目录：五事件输出 {}；项目和 PLUGIN_DATA 无新增文件，未知/动态命令不被插件执行。
+- Git 工作树：空历史、子目录、detached worktree、子模块正确启用；子模块读取自己的 github-flow，未误用父仓 classic-gitflow。
+- 命令目标：从普通目录经 git -C / 紧凑 -Cpath / 多次 -C / cd 访问仓库，保护主线提交被拒绝；反向访问无 Git 目录静默。
+- 状态变化：先无 Git，初始化后启用；移走 Git 元数据后停用；不缓存活动状态。
+- 环境与错误：GIT_DIR/GIT_WORK_TREE 不能将普通目录误判为仓库；损坏元数据返回未验证，未伪造 allow。
+- 分发：ZIP 解包后在异 cwd 重放全部无 Git Hook，随后初始化临时项目再次调用 SessionStart；CLI/MCP/原生 Hook 既有回归保持通过。
+
+本次源码、测试及输入指纹与完整输出见 [项目触发证据](evidence/project-activation.json) 和 [完整回归输出](evidence/project-activation-output.txt)。上方 0.1.0 的 69 项报告及 source-validation.json 保留为历史，不能用于证明新源码。新增 .github/workflows/validate.yml 在 Ubuntu/Python 3.11 与 macOS/Python 3.13 执行相同完整回归；实际远端结果绑定发布 commit，可从 Actions 查验。尚未进行真实宿主安装与事件接线验证。

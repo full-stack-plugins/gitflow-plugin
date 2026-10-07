@@ -46,11 +46,14 @@ class ProtocolTests(GitTestCase):
     def test_session_context_and_no_git_choice_persistence(self):
         data=self.path.parent/'plugin-data';self.env['PLUGIN_DATA']=str(data)
         r=self.hook('SessionStart')
-        self.assertIn('未受 Git 管理',r['hookSpecificOutput']['additionalContext'])
+        self.assertEqual(r,{})
+        self.assertIn('未受 Git 管理',self.cli('context',self.path)['context'])
         self.cli('context',self.path,'--choice','defer','--apply')
         r=self.hook('SessionStart')
-        self.assertIn('暂不启用',r['hookSpecificOutput']['additionalContext'])
-        self.assertNotIn('是否初始化',r['hookSpecificOutput']['additionalContext'])
+        self.assertEqual(r,{})
+        explicit=self.cli('context',self.path)['context']
+        self.assertIn('暂不启用',explicit)
+        self.assertNotIn('是否初始化',explicit)
         self.repository();self.activate(mode='local')
         r=self.hook('SessionStart')
         self.assertIn('classic-gitflow',r['hookSpecificOutput']['additionalContext'])

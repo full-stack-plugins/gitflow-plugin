@@ -50,7 +50,7 @@ class GitTestCase(unittest.TestCase):
 class CoreTests(GitTestCase):
     def test_version_is_executable_from_another_directory(self):
         r = self.cli('version', cwd=self.path)
-        self.assertEqual(r['version'], '0.1.0')
+        self.assertEqual(r['version'], json.loads((ROOT / 'plugin.json').read_text())['version'])
 
     def test_no_git_discovery_does_not_initialize_or_write(self):
         before = list(self.path.iterdir())

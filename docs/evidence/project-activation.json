@@ -1,0 +1,39 @@
+{
+  "version": "0.1.3",
+  "date": "2026-10-07",
+  "requirements": [
+    "R19",
+    "R20",
+    "R21"
+  ],
+  "test_count": 81,
+  "project_activation_tests": 12,
+  "tests": "PASS",
+  "red_evidence": {
+    "initial_tests": 10,
+    "initial_behavior_failures": 27,
+    "additional_cd_dynamic_test": "failed before active-cwd refresh; passed after fix"
+  },
+  "environment": {
+    "python": "3.14.3",
+    "git": "git version 2.48.1",
+    "os": "Darwin"
+  },
+  "fingerprint_algorithm": "sha256(sorted relative posix path + NUL + bytes + NUL)",
+  "runtime_sha256": "8974c6612a9f7a9c71d42bdc582af66c23e33073d612958f0785c1c3640474a2",
+  "tests_sha256": "0c37b6ddf22fff468a012e505df50c43ee437bce56377c171a5e28801c6cc4f0",
+  "spec_sha256": "17fa1a486288c09385173ebb89ca405677d22ffb2a6e838624e784a4b1497050",
+  "skills_lock_sha256": "693401d7b8cf4f48736e0a9011533196eafcbbf5487ad0c0d6c9db32428dcbb8",
+  "test_log_sha256": "3dc51cbfcaa8c02c2bb1388a2fbe63e613067ddce11595045f92c45a40cf64b8",
+  "checks": {
+    "package": "PASS",
+    "vendor_files": 90,
+    "manifest_mcp_version": "0.1.3"
+  },
+  "external_evidence": {
+    "host_installation": "not_run",
+    "host_event_integration": "not_run",
+    "remote_ci": "query exact published commit",
+    "hosted_branch_protection": "not_run"
+  }
+}

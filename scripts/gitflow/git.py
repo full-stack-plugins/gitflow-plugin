@@ -6,7 +6,7 @@ import selectors
 import signal
 import time
 
-VERSION = '0.1.2'
+VERSION = '0.1.3'
 
 
 class FlowError(Exception):
@@ -93,6 +93,21 @@ def report(action, decision='allow', reasons=None, **fields):
 
 def reason(code, message, **fields):
     return {'code': code, 'message': message, **fields}
+
+
+def is_git_project(path):
+    """只读判断真实工作树；支持 .git 文件，损坏/不可读状态不冒充无 Git。"""
+    requested = Path(path).expanduser().resolve()
+    if not requested.is_dir():
+        raise FlowError('path_not_directory', '项目路径必须是已存在目录。')
+    result = run(requested, 'rev-parse', '--is-inside-work-tree', check=False)
+    if result.returncode == 0:
+        return result.stdout.strip() == b'true'
+    metadata_present = any((parent / '.git').exists() or (parent / '.git').is_symlink()
+                           for parent in (requested, *requested.parents))
+    if metadata_present or b'not a git repository' not in result.stderr:
+        raise FlowError('repository_unreadable', 'Git 状态无法可靠读取；不能把损坏、权限或信任失败视为无 Git。')
+    return False
 
 
 def discover(path):

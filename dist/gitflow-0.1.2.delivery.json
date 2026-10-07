@@ -1,0 +1,19 @@
+{
+  "version": "0.1.2",
+  "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
+  "tag": "v0.1.2",
+  "sha256": "1935fc9c43031bac2920ecfd98f9ef64694678963caae70186190a258292738c",
+  "bytes": 336397,
+  "logo_sha256": "27293234a8de515216f8b4f2505afde3edf034688acc64bf3b152e8a61f1a9a4",
+  "logo_width": 512,
+  "logo_height": 512,
+  "logo_bytes": 122985,
+  "local_validation": {
+    "package_tests": 4,
+    "vendor_files": 90,
+    "manifest_mcp_version": "0.1.2",
+    "png_optimization": "identical RGBA after compression"
+  },
+  "host_installation": "unverified",
+  "ci": "query_remote_run"
+}

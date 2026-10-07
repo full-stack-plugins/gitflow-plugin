@@ -1,6 +1,6 @@
 {
   "name": "gitflow",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
   "author": {
     "name": "Full Stack Skills"

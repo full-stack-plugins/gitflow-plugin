@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-init/scripts/inspect_repository.py /absolute/projec
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+只有真实 Git 工作树才自动触发；新规则与组织导入都先预览，导入不等于激活，初始化后用 doctor 检查接线事实。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 插件 init 示例见 references/action.md。无插件先用 git init 的预览计划让用户审阅，按实际授权执行，绝不冒充 activation 已建立。

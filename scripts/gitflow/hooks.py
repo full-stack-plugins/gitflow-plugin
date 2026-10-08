@@ -9,7 +9,8 @@ from .context import context
 from .git import FlowError, discover, is_git_project, oid, reason, report, require_repo, text
 from .operations import ancestor, branch, sync
 from .policy import load, role_for
-from .service import gate
+from .service import gate, metadata_checks
+from . import rules
 from .layout import state_dir, state_file
 from .storage import locked, read_json, safe_dir
 
@@ -228,7 +229,17 @@ def native_main(kind,args):
             file=Path(args[0])
             if file.is_symlink() or file.stat().st_size>4096:raise FlowError('message_file_invalid','提交消息文件超过预算或为链接。')
             facts=require_repo('.')
-            r=managed_integration(facts) if facts['operation_states'] else gate('.', 'commit',message=file.read_text().strip())
+            message = file.read_text().strip()
+            if facts['operation_states']:
+                r = managed_integration(facts)
+                policy, active = load(facts)
+                checks = metadata_checks(facts, policy, message)
+                r = report('native.integration', rules.decision(checks), rules.reasons(checks), checks=checks, policy_sha256=active['sha256'])
+            else:
+                r = gate('.', 'commit', message=message)
+            for item in r.get('checks', []):
+                if item['severity'] == 'warn' and item['status'] == 'fail':
+                    print('GitFlow warning: ' + item['message'], file=sys.stderr)
         elif kind=='pre-push':
             if len(args)!=2:raise FlowError('remote_required','pre-push 需要远端身份。')
             facts=require_repo('.');policy,_=load(facts)

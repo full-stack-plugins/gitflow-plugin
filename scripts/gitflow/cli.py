@@ -18,7 +18,7 @@ class FlowParser(argparse.ArgumentParser):
 
 def parser():
     p = FlowParser(description='项目 Git 分支治理；默认只读或预览。')
-    p.add_argument('command', choices=['version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks'])
+    p.add_argument('command', choices=['version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor', 'check'])
     p.add_argument('path', nargs='?', default='.')
     p.add_argument('--json', action='store_true')
     p.add_argument('--profile')
@@ -36,6 +36,11 @@ def parser():
     p.add_argument('--commit')
     p.add_argument('--choice')
     p.add_argument('--operation-id')
+    p.add_argument('--sha256')
+    p.add_argument('--base')
+    p.add_argument('--head')
+    p.add_argument('--message-mode', choices=['commits', 'squash'], default='commits')
+    p.add_argument('--message-file')
     return p
 
 
@@ -48,7 +53,27 @@ def dispatch(a):
         return initialize(a.path, a.profile, a.mode, a.apply, a.initialize_git)
     if a.command == 'audit':
         return audit(a.path)
+    if a.command == 'check':
+        from .ci import check
+        if a.message_file:
+            from pathlib import Path
+            file = Path(a.message_file)
+            if file.is_symlink() or not file.is_file() or file.stat().st_size > 4096:
+                raise FlowError('ci_message_file_invalid', '候选消息文件无效。')
+            if a.message is not None:
+                raise FlowError('ci_message_ambiguous', '候选消息不能同时来自两个输入。')
+            a.message = file.read_text().strip()
+        return check(a.path, a.base, a.head, a.source, a.target, a.message_mode, a.message)
+    if a.command == 'organization':
+        from .organization import import_baseline
+        return import_baseline(a.path, a.source, a.name, a.sha256, a.apply)
+    if a.command == 'doctor':
+        from .diagnostics import doctor
+        return doctor(a.path)
     if a.command == 'policy':
+        if a.operation == 'describe':
+            from .diagnostics import describe
+            return describe(a.path)
         if a.operation != 'activate':
             raise FlowError('operation_unknown', '未知规范操作。')
         return activate(a.path, a.apply)

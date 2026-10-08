@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "change": "add-policy-rules-and-ci-governance",
+  "python": "3.14.8",
+  "local_tests": {
+    "passed": 124,
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py'"
+  },
+  "runtime_sha256": "2673d9e72cc20baf8a5abc0f71fe93ae9b943b06f9441b21e60c5f7ab5b1bd8b",
+  "test_sha256": "ff045b901c77f7b9436338472a51d8ba169af6ff4ef9fa1960494feb587914de",
+  "fingerprint_algorithm": "SHA256(sorted POSIX relative path + NUL + raw bytes + NUL); runtime scripts/**/*.py, profiles/*.json, schemas/*.json, action.yml; tests tests/test_*.py",
+  "skills_lock_sha256": "97764321e9b5095e7d4492a81319eeabd1870a7a8c0e8f223c7eb49f756b5ffb",
+  "upstream_skills_commit": "f3ef639aba4c499e4a69ff47e24dd816bd431600",
+  "log_sha256": "7da9156386cb8bbbfb08d84fac659ef431e98ba560b43a2573f1f59e734a99de",
+  "checks": [
+    "package validation",
+    "90 file snapshot validation against source",
+    "9 skill structural/quick validation",
+    "official plugin/MCP schema validation",
+    "Action and sample YAML parsing",
+    "workflow-v2 example runtime validation",
+    "OpenSpec strict validation"
+  ],
+  "trace_overall_range": [
+    4.43,
+    4.46
+  ],
+  "host_installation": "not_tested",
+  "business_pr_live": "not_tested",
+  "server_protection": "not_tested",
+  "ci": "query exact release commit; not implied by local result"
+}

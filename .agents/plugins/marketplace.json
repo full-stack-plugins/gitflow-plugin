@@ -9,20 +9,20 @@
       "source": {
         "source": "url",
         "url": "https://github.com/full-stack-plugins/gitflow-plugin.git",
-        "ref": "v0.1.5"
+        "ref": "v0.2.0"
       },
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_USE"
       },
       "category": "Developer Tools",
-      "version": "0.1.5",
+      "version": "0.2.0",
       "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
-      "icon": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.1.5/assets/logo.png",
+      "icon": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.2.0/assets/logo.png",
       "interface": {
         "displayName": "GitFlow",
         "shortDescription": "项目 Git 分支规范治理",
-        "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.1.5/assets/logo.png"
+        "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.2.0/assets/logo.png"
       }
     }
   ]

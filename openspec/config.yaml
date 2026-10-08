@@ -1,0 +1,6 @@
+schema: spec-driven
+context: |
+  GitFlow 是 Python 3.11+ 标准库 Git 治理插件，文档中文。
+  v0.1.5 基线在 docs/superpowers/specs/2026-10-07-gitflow.md，不改写历史验收。
+  新增规则须兼容旧配置；只读操作不 fetch、不写工作树。状态在 .gitflow/state/。
+  未验证不得伪造通过；实施采用真实临时 Git 测试的 TDD。

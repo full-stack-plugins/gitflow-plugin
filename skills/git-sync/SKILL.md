@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-sync/scripts/inspect_repository.py /absolute/projec
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+集成提交也检查元数据和绑定日志；CI 不自动 fetch，不执行 PR 中脚本，浅历史需由获授权的接入步骤补齐。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 拉取默认 ff-only；squash 需独立提交审阅，首版插件拒绝自动 squash 集成而不是造一个批准。

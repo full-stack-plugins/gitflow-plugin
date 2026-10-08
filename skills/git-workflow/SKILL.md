@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-workflow/scripts/inspect_repository.py /absolute/pr
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+保留 v1 项目约定；确需 v2 时明确 rules/extends、warning 迁移策略、锁定组织项及激活修订，不默认开启全部规则。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 输出候选规则、来源、差异、适用场景、例外与授权边界。profile JSON 的闭合字段见本技能 references/policy.md。

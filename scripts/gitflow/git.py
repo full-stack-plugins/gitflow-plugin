@@ -6,7 +6,7 @@ import selectors
 import signal
 import time
 
-VERSION = '0.1.5'
+VERSION = '0.2.0'
 
 
 class FlowError(Exception):

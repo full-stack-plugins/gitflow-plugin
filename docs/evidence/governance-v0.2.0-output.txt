@@ -1,0 +1,372 @@
+gitflow-rules-red
+FFFFFFF
+======================================================================
+FAIL: test_author_signoff_and_ai_disclosure (test_policy_rules.PolicyRuleTests.test_author_signoff_and_ai_disclosure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 53, in test_author_signoff_and_ai_disclosure
+    self.configured({'GF101': {'severity': 'error', 'options': {'pattern': '^Tester$'}},
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     'GF102': {'severity': 'error', 'options': {'pattern': '^test@example[.]invalid$'}},
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     'GF103': {'severity': 'error'},
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     'GF104': {'severity': 'error', 'options': {'mode': 'disclose'}}})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_conventional_message_gives_mechanical_fix_without_mutation (test_policy_rules.PolicyRuleTests.test_conventional_message_gives_mechanical_fix_without_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 27, in test_conventional_message_gives_mechanical_fix_without_mutation
+    self.configured({'GF001': {'severity': 'error'}})
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_invalid_configuration_cannot_be_silently_disabled (test_policy_rules.PolicyRuleTests.test_invalid_configuration_cannot_be_silently_disabled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 45, in test_invalid_configuration_cannot_be_silently_disabled
+    self.configured({'GF001': {'severity': 'error'}})
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_mcp_rule_result_matches_cli (test_policy_rules.PolicyRuleTests.test_mcp_rule_result_matches_cli)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 76, in test_mcp_rule_result_matches_cli
+    self.configured({'GF001': {'severity': 'error'}})
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_native_hook_blocks_and_then_accepts_same_policy (test_policy_rules.PolicyRuleTests.test_native_hook_blocks_and_then_accepts_same_policy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 62, in test_native_hook_blocks_and_then_accepts_same_policy
+    self.configured({'GF001': {'severity': 'error'}})
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_protected_branch_is_not_relaxed_by_off_rules (test_policy_rules.PolicyRuleTests.test_protected_branch_is_not_relaxed_by_off_rules)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 70, in test_protected_branch_is_not_relaxed_by_off_rules
+    self.configured({'GF001': {'severity': 'off'}})
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_warning_reports_failure_without_blocking (test_policy_rules.PolicyRuleTests.test_warning_reports_failure_without_blocking)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 39, in test_warning_reports_failure_without_blocking
+    self.configured({'GF002': {'severity': 'warn', 'options': {'max_length': 12}}})
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 15, in configured
+    self.cli('init', self.path, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 0 : {"schema_version": "1.0.0", "action": "init", "decision": "unverified", "reasons": [{"code": "policy_schema_invalid", "message": "工作流字段或版本不符合 1.0.0 契约。"}], "next_actions": []}
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.766s
+
+FAILED (failures=7)
+
+
+gitflow-org-red
+FFFFF
+======================================================================
+FAIL: test_digest_and_existing_file_are_preserved (test_organization_policy.OrganizationPolicyTests.test_digest_and_existing_file_are_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_organization_policy.py", line 34, in test_digest_and_existing_file_are_preserved
+    self.cli('organization', self.path, '--source', source, '--name', 'team', '--sha256', '0'*64, '--apply', code=3)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 3 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'organization' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_doctor_is_readonly_and_does_not_claim_host_enforcement (test_organization_policy.OrganizationPolicyTests.test_doctor_is_readonly_and_does_not_claim_host_enforcement)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_organization_policy.py", line 66, in test_doctor_is_readonly_and_does_not_claim_host_enforcement
+    r = self.cli('doctor', self.path)
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'doctor' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_https_preview_does_not_connect (test_organization_policy.OrganizationPolicyTests.test_https_preview_does_not_connect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_organization_policy.py", line 28, in test_https_preview_does_not_connect
+    self.cli('organization', self.path, '--source', 'https://127.0.0.1:1/unreachable', '--name', 'team', '--sha256', 'a'*64)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'organization' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_import_preview_and_apply_do_not_activate (test_organization_policy.OrganizationPolicyTests.test_import_preview_and_apply_do_not_activate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_organization_policy.py", line 19, in test_import_preview_and_apply_do_not_activate
+    self.cli('organization', self.path, '--source', source, '--name', 'team', '--sha256', digest)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'organization' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_locked_rule_and_tampered_baseline_cannot_weaken_policy (test_organization_policy.OrganizationPolicyTests.test_locked_rule_and_tampered_baseline_cannot_weaken_policy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_organization_policy.py", line 46, in test_locked_rule_and_tampered_baseline_cannot_weaken_policy
+    self.cli('organization', self.path, '--source', source, '--name', 'team', '--sha256', digest, '--apply')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 0 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'organization' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks')"}], "next_actions": []}
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.536s
+
+FAILED (failures=5)
+
+
+gitflow-ci-red
+FFFFFFFF
+======================================================================
+FAIL: test_action_event_runner_rejects_bad_pr_without_shell_execution (test_ci_governance.CIGovernanceTests.test_action_event_runner_rejects_bad_pr_without_shell_execution)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 84, in test_action_event_runner_rejects_bad_pr_without_shell_execution
+    self.assertEqual(p.returncode, 1, p.stdout+p.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : /opt/homebrew/Cellar/python@3.14/3.14.8/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/scripts/ci_check.py': [Errno 2] No such file or directory
+
+
+======================================================================
+FAIL: test_all_commits_checked_and_detached_checkout_is_readonly (test_ci_governance.CIGovernanceTests.test_all_commits_checked_and_detached_checkout_is_readonly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 28, in test_all_commits_checked_and_detached_checkout_is_readonly
+    r = self.run_check(head, code=1)
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_ci_requires_committed_base_policy_not_local_activation (test_ci_governance.CIGovernanceTests.test_ci_requires_committed_base_policy_not_local_activation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 73, in test_ci_requires_committed_base_policy_not_local_activation
+    self.run_check(self.git('rev-parse', 'HEAD'), code=3)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 3 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_head_policy_cannot_disable_base_rules (test_ci_governance.CIGovernanceTests.test_head_policy_cannot_disable_base_rules)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 41, in test_head_policy_cannot_disable_base_rules
+    self.run_check(head, code=1)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_merge_direction_is_enforced (test_ci_governance.CIGovernanceTests.test_merge_direction_is_enforced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 45, in test_merge_direction_is_enforced
+    r = self.run_check(self.commit('feat: valid'), target='feature/other', code=1)
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_missing_object_and_unrelated_history_are_unverified (test_ci_governance.CIGovernanceTests.test_missing_object_and_unrelated_history_are_unverified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 50, in test_missing_object_and_unrelated_history_are_unverified
+    self.run_check('a'*40, code=3)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 3 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_squash_needs_candidate_and_checks_it (test_ci_governance.CIGovernanceTests.test_squash_needs_candidate_and_checks_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 58, in test_squash_needs_candidate_and_checks_it
+    self.run_check(head, '--message-mode', 'squash', code=3)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 3 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+======================================================================
+FAIL: test_tag_metadata_is_checked (test_ci_governance.CIGovernanceTests.test_tag_metadata_is_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 67, in test_tag_metadata_is_checked
+    r = self.run_check(head, code=1)
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_ci_governance.py", line 20, in run_check
+    return self.cli('check', self.path, '--base', self.base, '--head', head, '--source', source, '--target', target, *args, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 2 != 1 : {"schema_version": "1.0.0", "action": "usage", "decision": "error", "reasons": [{"code": "usage_invalid", "message": "argument command: invalid choice: 'check' (choose from 'version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor')"}], "next_actions": []}
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.761s
+
+FAILED (failures=8)
+
+
+gitflow-boundary-red
+.......F..
+======================================================================
+FAIL: test_mcp_annotations_match_network_and_readonly_behavior (test_governance_boundaries.GovernanceBoundaries.test_mcp_annotations_match_network_and_readonly_behavior)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_governance_boundaries.py", line 18, in test_mcp_annotations_match_network_and_readonly_behavior
+    self.assertTrue(entries['gitflow_organization']['annotations']['openWorldHint'])
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 10 tests in 10.837s
+
+FAILED (failures=1)
+
+
+gitflow-org-boundary-red
+.....F
+======================================================================
+FAIL: test_missing_shared_definition_cannot_hide_missing_baseline (test_organization_policy.OrganizationPolicyTests.test_missing_shared_definition_cannot_hide_missing_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_organization_policy.py", line 79, in test_missing_shared_definition_cannot_hide_missing_baseline
+    self.check('feat: candidate', code=3)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_policy_rules.py", line 22, in check
+    return self.cli('gate', self.path, '--action', 'commit', '--message', message, code=code)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wandl/workspaces/workspace-agent-skills/full-stack-plugins-repositories/gitflow-plugin/tests/test_core.py", line 40, in cli
+    self.assertEqual(p.returncode, code, p.stderr or p.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 3 : {"schema_version": "1.0.0", "action": "gate.commit", "decision": "allow", "reasons": [], "next_actions": [], "checks": [{"rule_id": "GF001", "name": "commit.conventional", "severity": "error", "status": "pass", "actual": "feat: candidate", "expected": {"types": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert"], "allow_merge": true}, "message": "符合规则。", "suggestion": null, "fix": null}, {"rule_id": "GF002", "name": "commit.subject_length", "severity": "off", "status": "skipped", "actual": null, "expected": {"min_length": 1, "max_length": 72}, "message": "未启用或不适用于此检查。", "suggestion": null, "fix": null}, {"rule_id": "GF101", "name": "author.name", "severity": "off", "status": "skipped", "actual": null, "expected": {"pattern": "[^\\r\\n<>]+"}, "message": "未启用或不适用于此检查。", "suggestion": null, "fix": null}, {"rule_id": "GF102", "name": "author.email", "severity": "off", "status": "skipped", "actual": null, "expected": {"pattern": "[^\\s@]+@[^\\s@]+"}, "message": "未启用或不适用于此检查。", "suggestion": null, "fix": null}, {"rule_id": "GF103", "name": "commit.signoff", "severity": "off", "status": "skipped", "actual": null, "expected": {}, "message": "未启用或不适用于此检查。", "suggestion": null, "fix": null}, {"rule_id": "GF104", "name": "commit.ai_disclosure", "severity": "off", "status": "skipped", "actual": null, "expected": {"mode": "ignore"}, "message": "未启用或不适用于此检查。", "suggestion": null, "fix": null}, {"rule_id": "GF401", "name": "tag.format", "severity": "off", "status": "skipped", "actual": null, "expected": {"pattern": "v[0-9]+\\.[0-9]+\\.[0-9]+"}, "message": "未启用或不适用于此检查。", "suggestion": null, "fix": null}], "branch": "feature/rules", "role": "feature", "revision": 2, "policy_sha256": "124525e961fefb792d2da917f45031a08978c9988c43e374d3f377ecf1097a57", "quality_decision": "not_evaluated"}
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.953s
+
+FAILED (failures=1)
+
+
+gitflow-v0.2.0-full
+............................................................................................................................
+----------------------------------------------------------------------
+Ran 124 tests in 97.241s
+
+OK

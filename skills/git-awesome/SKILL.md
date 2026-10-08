@@ -47,6 +47,10 @@ python3 /mnt/skills/user/git-awesome/scripts/inspect_repository.py /absolute/pro
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+比较资料时区分已验证功能与宣传；Commit Check 的统一规则与多入口可作参考，GitFlow 仍管理分支生命周期。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 输出来源表、比较表、适用条件与未核实问题。不要使用“官方 Git 标准要求 GitFlow”的说法。

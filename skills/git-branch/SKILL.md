@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-branch/scripts/inspect_repository.py /absolute/proj
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+分支角色、命名、来源和流转是硬门禁；关闭提交格式规则不能豁免保护分支或创建基线。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 执行后核验新旧 refs、当前分支、HEAD 与 origin 记录；空历史不假造 main/develop 指针。

@@ -13,8 +13,10 @@ FIELDS={
  'sync':['operation','source','target','remote','apply'],
  'release':['operation','name','source','targets','commit','apply'],
  'recovery':['operation','target','commit','apply','operation_id'],
- 'context':['choice','apply'], 'hooks':['apply']}
-READ={'discover','audit','gate'}
+ 'context':['choice','apply'], 'hooks':['apply'],
+ 'check':['base','head','source','target','message_mode','message'],
+ 'doctor':[], 'organization':['source','name','sha256','apply'], 'rules':[]}
+READ={'discover','audit','gate','doctor','rules','check'}
 
 
 def descriptors():
@@ -25,7 +27,7 @@ def descriptors():
             props[key]={'type':'boolean'} if key in ('apply','initialize_git') else {'type':'string','maxLength':4096}
         result.append({'name':'gitflow_'+command,'description':command+'：项目 Git 工作流治理；写操作默认预览，apply 需当前用户授权。',
                        'inputSchema':{'type':'object','properties':props,'required':['path'],'additionalProperties':False},
-                       'annotations':{'readOnlyHint':command in READ,'destructiveHint':command not in READ,'idempotentHint':command in READ,'openWorldHint':command=='sync'}})
+                       'annotations':{'readOnlyHint':command in READ,'destructiveHint':command not in READ,'idempotentHint':command in READ,'openWorldHint':command in ('sync','organization')}})
     return result
 
 
@@ -37,6 +39,9 @@ def call(name,args):
         if key in ('apply','initialize_git'):
             if type(value) is not bool:raise FlowError('mcp_arguments_invalid','apply/init 标志必须为真实布尔值。')
         elif not isinstance(value,str) or len(value)>4096 or '\x00' in value:raise FlowError('mcp_arguments_invalid','字符串参数超过预算或类型错误。')
+    if command == 'rules':
+        from .diagnostics import describe
+        return describe(args['path'])
     from .cli import dispatch, parser
     defaults=vars(parser().parse_args([command,args['path']]))
     defaults.update(args)

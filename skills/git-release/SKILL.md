@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-release/scripts/inspect_repository.py /absolute/pro
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+GF401 仅检查本地已观察到、指向 head 的标签；仍逐目标核验回灌，不将标签格式通过当发布完成。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 保留源分支与日志直到所有目标核验。原生流程并不默认删除分支或发布 tag。

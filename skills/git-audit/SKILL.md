@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-audit/scripts/inspect_repository.py /absolute/proje
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+用 policy describe 解释项目/组织/快照来源，用 doctor 区分 missing/configured/unverified；PR 审计使用受信 base 的完整范围。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 报告应携带仓库身份、规则修订和证据层级。CodeGraph 或静态关系不能代替 Git 状态与真实服务保护。

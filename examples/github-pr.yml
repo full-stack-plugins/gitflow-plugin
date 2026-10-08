@@ -1,0 +1,22 @@
+# 放到业务仓库 .github/workflows/gitflow.yml；先在目标分支提交 .gitflow/workflow.json。
+name: GitFlow PR
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+permissions:
+  contents: read
+jobs:
+  gitflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      # 生产建议将版本标签换成审核过的完整 commit SHA。
+      - uses: full-stack-plugins/gitflow-plugin@v0.2.0
+        with:
+          repository: .
+          message-mode: commits

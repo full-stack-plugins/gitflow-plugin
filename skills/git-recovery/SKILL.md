@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-recovery/scripts/inspect_repository.py /absolute/pr
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+元数据门禁拒绝 merge commit 时保留 MERGE_HEAD 与日志；核对状态后修正候选消息再继续，不重复 merge 或清空现场。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 插件 resume 是观察和恢复建议，不自动重放 unknown 命令。冲突解法必须结合当前文件与业务行为核验。

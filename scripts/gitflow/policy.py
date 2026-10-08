@@ -6,6 +6,7 @@ import re
 
 from .git import FlowError, report, reason, require_repo, valid_branch
 from .layout import state_file
+from .organization import resolve, validate_pointer
 from .storage import atomic_json, locked, read_json, safe_dir
 
 ASSETS = Path(__file__).resolve().parents[2] / 'profiles'
@@ -21,8 +22,16 @@ def digest(value):
 
 def validate(value):
     """拒绝未知字段、错误类型、无效角色关系与复杂不受限模式。"""
-    if not isinstance(value, dict) or set(value) != TOP or value['schema_version'] != '1.0.0':
-        raise FlowError('policy_schema_invalid', '工作流字段或版本不符合 1.0.0 契约。')
+    if not isinstance(value, dict):
+        raise FlowError('policy_schema_invalid', '工作流必须是对象。')
+    version = value.get('schema_version')
+    fields = TOP if version == '1.0.0' else TOP | {'rules', 'extends'}
+    if version not in ('1.0.0', '2.0.0') or set(value) != fields:
+        raise FlowError('policy_schema_invalid', '工作流字段或版本不符合契约。')
+    if version == '2.0.0':
+        from .rules import validate_rules
+        validate_rules(value['rules'])
+        validate_pointer(value['extends'])
     if not isinstance(value['profile'], str) or not re.fullmatch(r'[a-z0-9-]{1,64}', value['profile']):
         raise FlowError('policy_profile_invalid', '工作流标识无效。')
     if type(value['revision']) is not int or value['revision'] < 1:
@@ -111,8 +120,10 @@ def load(facts):
         raise FlowError('activation_invalid', '工作流生效快照摘要不一致。')
     if active['mode'] == 'shared':
         candidate = safe_dir(facts['root'], '.gitflow') / 'workflow.json'
-        # 某些分支尚未提交共享定义，仍使用公共目录里的已生效约定。
-        if candidate.exists() and digest(validate(read_json(candidate))) != active['sha256']:
+        # 某些分支尚未提交共享定义，仍使用已生效约定；引用的组织文件仍需验证。
+        if not candidate.exists() and policy.get('extends'):
+            resolve(policy, facts['root'])
+        if candidate.exists() and digest(resolve(validate(read_json(candidate)), facts['root'])) != active['sha256']:
             raise FlowError('policy_drift', '项目定义已变化但尚未激活；当前动作需先复核规则修订。')
     return policy, active
 
@@ -141,7 +152,8 @@ def activate(path, apply=False):
     old = read_json(active_file) if active_file.exists() else None
     candidate = safe_dir(facts['root'], '.gitflow') / 'workflow.json'
     if candidate.exists():
-        policy = validate(read_json(candidate))
+        definition = validate(read_json(candidate))
+        policy = resolve(definition, facts['root'])
         mode = 'shared'
     elif old and old.get('mode') == 'local':
         policy = validate(old['policy'])
@@ -159,10 +171,11 @@ def activate(path, apply=False):
         with locked(facts):
             active_file = activation_path(facts)
             current_old = read_json(active_file) if active_file.exists() else None
-            if current_old != old or (mode == 'shared' and digest(validate(read_json(candidate))) != candidate_sha):
+            if current_old != old or (mode == 'shared' and digest(resolve(validate(read_json(candidate)), facts['root'])) != candidate_sha):
                 raise FlowError('policy_changed', '候选或激活身份已变化，请重新预览。')
             if mode == 'shared':
-                atomic_json(candidate, policy)
+                definition['revision'] = policy['revision']
+                atomic_json(candidate, definition)
                 if not markdown.exists() or old and markdown.read_text(encoding='utf-8') == explanation(old['policy']):
                     markdown.write_text(explanation(policy), encoding='utf-8')
                 else:

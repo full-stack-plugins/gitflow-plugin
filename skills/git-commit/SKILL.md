@@ -50,6 +50,10 @@ python3 /mnt/skills/user/git-commit/scripts/inspect_repository.py /absolute/proj
 
 GitFlow 插件可用时调用其实际路径对应命令，详见 [操作样例](references/action.md)。不得把未安装的 CLI 名称当已存在命令。
 
+## v2 治理补充
+
+提交前检查 v2 checks 的逐条结果与真实作者；确定性 fix 仅作建议，warning 不阻断但未知不放行。GF103 不等同 GPG 签名。 细节见本技能 references/contract.md。
+
 ## 验证与输出
 
 插件 gate --action commit --message 提供机器结果；native commit-msg 可显式安装，现有 Hook 保留。

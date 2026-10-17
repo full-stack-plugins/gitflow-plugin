@@ -1,0 +1,32 @@
+{
+  "name": "@partme-dsh/gitflow",
+  "version": "0.3.0",
+  "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
+  "type": "module",
+  "main": "lib/index.js",
+  "icon": "./icon.png",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "lib/index.js",
+    "icon.svg",
+    "icon.png",
+    "README.md"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [
+    "git",
+    "gitflow",
+    "branch",
+    "workflow"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

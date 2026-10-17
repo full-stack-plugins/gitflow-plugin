@@ -22,7 +22,7 @@
       "interface": {
         "displayName": "GitFlow",
         "shortDescription": "项目 Git 分支规范治理",
-        "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.2.0/assets/logo.png"
+        "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.3.0/assets/logo.png"
       }
     }
   ]

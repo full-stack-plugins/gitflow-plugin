@@ -1,0 +1,12 @@
+{
+  "name": "gitflow-plugin",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "main": "./dsh/lib/index.js",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

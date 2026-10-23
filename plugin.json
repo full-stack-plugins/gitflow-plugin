@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gitflow",
   "version": "0.3.0",
-  "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
+  "description": "Nine Git skills plus deterministic gates: initialization, branch roles, commit policy, sync, release backports, recovery and audit.",
   "author": {
     "name": "Full Stack Skills"
   },
@@ -24,15 +24,17 @@
     },
     "com.openai": {
       "interface": {
-        "displayName": "GitFlow",
-        "shortDescription": "项目 Git 分支规范治理",
+        "displayName": "Git Branch Governance · GitFlow",
+        "shortDescription": "Branch naming, creation, commits, sync and release backports",
         "defaultPrompt": [
           "识别本项目 Git 规范并执行只读审计",
           "预览符合项目工作流的任务分支"
         ],
         "brandColor": "#F05032",
         "logo": "./assets/logo.png",
-        "logoDark": "./assets/logo.png"
+        "logoDark": "./assets/logo.png",
+        "composerIcon": "./assets/logo.png",
+        "composerIconDark": "./assets/logo.png"
       }
     }
   },

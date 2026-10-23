@@ -1,7 +1,7 @@
 {
   "name": "gitflow",
   "version": "0.3.0",
-  "description": "按项目约定治理 Git 分支、提交与流转，九技能加确定性门禁",
+  "description": "Nine Git skills plus deterministic gates: initialization, branch roles, commit policy, sync, release backports, recovery and audit.",
   "author": {
     "name": "Full Stack Skills"
   },

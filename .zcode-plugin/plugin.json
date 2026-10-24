@@ -16,8 +16,8 @@
   "mcpServers": "./.mcp.json",
   "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
   "homepage": "https://github.com/full-stack-plugins/gitflow-plugin",
-  "displayName": "Git Branch Governance · GitFlow",
+  "displayName": "GitFlow · Git Branch Governance",
   "displayName_i18n": {
-    "en": "Git Branch Governance · GitFlow"
+    "en": "GitFlow · Git Branch Governance"
   }
 }

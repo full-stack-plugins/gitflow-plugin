@@ -1,7 +1,7 @@
 {
   "name": "full-stack-plugins-gitflow",
   "interface": {
-    "displayName": "Git Branch Governance · GitFlow"
+    "displayName": "GitFlow · Git Branch Governance"
   },
   "plugins": [
     {
@@ -20,7 +20,7 @@
       "description": "Nine Git skills plus deterministic gates: initialization, branch roles, commit policy, sync, release backports, recovery and audit.",
       "icon": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.3.0/assets/logo.png",
       "interface": {
-        "displayName": "Git Branch Governance · GitFlow",
+        "displayName": "GitFlow · Git Branch Governance",
         "shortDescription": "Branch naming, creation, commits, sync and release backports",
         "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.3.0/assets/logo.png"
       }

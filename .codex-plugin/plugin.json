@@ -14,7 +14,7 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Git Branch Governance · GitFlow",
+    "displayName": "GitFlow · Git Branch Governance",
     "shortDescription": "Branch naming, creation, commits, sync and release backports",
     "defaultPrompt": [
       "识别本项目 Git 规范并执行只读审计",

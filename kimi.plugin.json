@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "Nine Git skills plus deterministic gates: initialization, branch roles, commit policy, sync, release backports, recovery and audit.",
   "interface": {
-    "displayName": "Git Branch Governance · GitFlow",
+    "displayName": "GitFlow · Git Branch Governance",
     "shortDescription": "Branch naming, creation, commits, sync and release backports",
     "category": "development"
   },

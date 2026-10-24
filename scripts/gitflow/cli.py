@@ -18,7 +18,7 @@ class FlowParser(argparse.ArgumentParser):
 
 def parser():
     p = FlowParser(description='项目 Git 分支治理；默认只读或预览。')
-    p.add_argument('command', choices=['version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor', 'check'])
+    p.add_argument('command', choices=['version', 'discover', 'init', 'audit', 'gate', 'policy', 'branch', 'sync', 'release', 'recovery', 'context', 'hooks', 'organization', 'doctor', 'check', 'status', 'report'])
     p.add_argument('path', nargs='?', default='.')
     p.add_argument('--json', action='store_true')
     p.add_argument('--profile')
@@ -70,6 +70,14 @@ def dispatch(a):
     if a.command == 'doctor':
         from .diagnostics import doctor
         return doctor(a.path)
+    if a.command in ('status', 'report'):
+        from .diagnostics import doctor
+        facts = discover(a.path)
+        diagnostics = doctor(a.path)
+        result = report(a.command, discovery=facts, diagnostics=diagnostics)
+        if diagnostics.get('decision') == 'unverified':
+            result['decision'] = 'unverified'
+        return result
     if a.command == 'policy':
         if a.operation == 'describe':
             from .diagnostics import describe

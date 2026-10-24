@@ -1,0 +1,7 @@
+#!/bin/sh
+ROOT=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+cmd=$1
+case "$cmd" in
+  install|uninstall|upgrade|completion) exec python3 "$ROOT/scripts/install_cli.py" "$@" ;;
+  *) exec python3 "$ROOT/scripts/gitflow.py" "$@" ;;
+esac

@@ -1,7 +1,7 @@
 {
   "name": "gitflow",
   "version": "0.3.0",
-  "description": "Nine Git skills plus deterministic gates: initialization, branch roles, commit policy, sync, release backports, recovery and audit.",
+  "description": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。",
   "author": {
     "name": "Full Stack Skills"
   },
@@ -16,8 +16,12 @@
   "mcpServers": "./.mcp.json",
   "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
   "homepage": "https://github.com/full-stack-plugins/gitflow-plugin",
-  "displayName": "GitFlow · Git Branch Governance",
+  "displayName": "GitFlow（Git 分支治理）",
   "displayName_i18n": {
-    "en": "GitFlow · Git Branch Governance"
+    "en": "GitFlow · Git Branch Governance",
+    "zh-CN": "GitFlow（Git 分支治理）"
+  },
+  "description_i18n": {
+    "zh-CN": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。"
   }
 }

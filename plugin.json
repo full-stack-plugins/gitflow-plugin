@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gitflow",
-  "version": "0.3.1",
+  "version": "0.3.0",
   "description": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。",
   "author": {
     "name": "Full Stack Skills"

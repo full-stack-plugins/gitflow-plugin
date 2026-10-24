@@ -1,6 +1,6 @@
 {
   "name": "gitflow",
-  "version": "0.3.1",
+  "version": "0.3.0",
   "description": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。",
   "author": {
     "name": "Full Stack Skills"
@@ -18,7 +18,6 @@
   "homepage": "https://github.com/full-stack-plugins/gitflow-plugin",
   "displayName": "GitFlow（Git 分支治理）",
   "displayName_i18n": {
-    "en": "GitFlow · Git Branch Governance",
     "zh-CN": "GitFlow（Git 分支治理）"
   },
   "description_i18n": {

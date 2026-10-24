@@ -89,6 +89,7 @@
     "skills/git-workflow/references/profiles/trunk-based.json": "97e0c33337c7c875b185b6d2101e00230c3c125a9c1ab23de6af8ad2eb8ac1d3",
     "skills/git-workflow/references/workflows.md": "2a7554b37f815cac56c4d49099150ec15e90f61a2586423b2f06f3f3a0bf91bf",
     "skills/git-workflow/scripts/inspect_repository.py": "dd7b24109642211c2eced15afb6ec2aae24f7cc5c3c4bd6a3a084f2e04d945be",
+    "skills/gitguard/SKILL.md": "1dc6fcb6761396d81671da99a9f17b2405d9ae1d67312cd54118115260f00458",
     "sources.json": "b8254e077d061e1280ee573ab8293231daf6991475e7b8c03ff38fdea4f8986f"
   },
   "schema_version": "1.0.0",

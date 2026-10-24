@@ -27,12 +27,5 @@
     "composerIconDark": "./assets/logo.png"
   },
   "repository": "https://github.com/full-stack-plugins/gitflow-plugin",
-  "homepage": "https://github.com/full-stack-plugins/gitflow-plugin",
-  "displayName": "GitGuard（分支规范防护）",
-  "displayName_i18n": {
-    "zh-CN": "GitGuard（分支规范防护）"
-  },
-  "description_i18n": {
-    "zh-CN": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。"
-  }
+  "homepage": "https://github.com/full-stack-plugins/gitflow-plugin"
 }

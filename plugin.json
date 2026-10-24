@@ -24,8 +24,8 @@
     },
     "com.openai": {
       "interface": {
-        "displayName": "GitFlow · Git Branch Governance",
-        "shortDescription": "Branch naming, creation, commits, sync and release backports",
+        "displayName": "GitFlow（Git 分支治理）",
+        "shortDescription": "分支命名、创建、提交、同步与发布回灌",
         "defaultPrompt": [
           "识别本项目 Git 规范并执行只读审计",
           "预览符合项目工作流的任务分支"

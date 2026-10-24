@@ -23,7 +23,12 @@
         "displayName": "GitFlow · Git Branch Governance",
         "shortDescription": "Branch naming, creation, commits, sync and release backports",
         "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.3.0/assets/logo.png"
-      }
+      },
+      "line": "full-stack",
+      "componentTypes": [
+        "skills",
+        "mcp"
+      ]
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "full-stack-plugins-gitflow",
   "interface": {
-    "displayName": "GitFlow · Git Branch Governance"
+    "displayName": "GitFlow（Git 分支治理）"
   },
   "plugins": [
     {

@@ -1,7 +1,7 @@
 {
   "name": "full-stack-plugins-gitflow",
   "interface": {
-    "displayName": "GitFlow（Git 分支治理）"
+    "displayName": "GitGuard（分支规范防护）"
   },
   "plugins": [
     {
@@ -18,11 +18,11 @@
       "category": "Developer Tools",
       "version": "0.4.0",
       "description": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。",
-      "icon": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.3.1/assets/logo.png",
+      "icon": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.4.0/assets/logo.png",
       "interface": {
         "displayName": "GitGuard（分支规范防护）",
         "shortDescription": "分支命名、创建、提交、同步与发布回灌",
-        "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.3.1/assets/logo.png"
+        "logo": "https://cdn.jsdelivr.net/gh/full-stack-plugins/gitflow-plugin@v0.4.0/assets/logo.png"
       },
       "line": "full-stack",
       "componentTypes": [

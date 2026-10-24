@@ -24,7 +24,7 @@
     },
     "com.openai": {
       "interface": {
-        "displayName": "GitFlow（Git 分支治理）",
+        "displayName": "GitGuard（分支规范防护）",
         "shortDescription": "分支命名、创建、提交、同步与发布回灌",
         "defaultPrompt": [
           "识别本项目 Git 规范并执行只读审计",

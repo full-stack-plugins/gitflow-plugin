@@ -1,9 +1,9 @@
 {
-  "name": "gitflow",
-  "version": "0.3.1",
-  "description": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。",
+  "name": "gitguard",
+  "version": "0.4.0",
+  "description": "Git 分支、变更范围、同步、发布回灌、恢复与合并候选防护；保留真实 Git 事实与回退路径。",
   "interface": {
-    "displayName": "GitFlow（Git 分支治理）",
+    "displayName": "GitGuard（分支规范防护）",
     "shortDescription": "分支命名、创建、提交、同步与发布回灌",
     "category": "development"
   },
@@ -19,10 +19,10 @@
     }
   },
   "displayName_i18n": {
-    "zh-CN": "GitFlow（Git 分支治理）"
+    "zh-CN": "GitGuard（分支规范防护）"
   },
   "description_i18n": {
     "zh-CN": "九项 Git 技能加确定性门禁：初始化、分支角色、提交策略、同步、发布回灌、恢复与审计。"
   },
-  "displayName": "GitFlow（Git 分支治理）"
+  "displayName": "GitGuard（分支规范防护）"
 }
